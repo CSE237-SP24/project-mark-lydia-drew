@@ -29,6 +29,20 @@ class BankAccountTests {
 		
 		//2. Call the method being tested
 		testAccount.deposit(25);
+		testAccount.deposit(15.5);
+		
+		//3. Use assertions to verify results
+		assertEquals(40.5, testAccount.getBalance(), 0.01);	
+	}
+
+	@Test
+	void testMultipleDepositsWithError() {
+		//1. Setup Objects
+		
+		BankAccount testAccount = new BankAccount();
+		
+		//2. Call the method being tested
+		testAccount.deposit(25);
 		try {
 			testAccount.deposit(-25);
 		} catch (IllegalArgumentException e) {;}
@@ -40,7 +54,7 @@ class BankAccountTests {
 
 	@Test
 	void testNegativeDeposit() {
-		//1. Setup Objects	
+		//1. Setup Objects
 		BankAccount testAccount = new BankAccount();
 		
 		//2. Call the method being tested
@@ -51,6 +65,87 @@ class BankAccountTests {
 			//we expect to end up here, -25 is a bad input
 			assertTrue(true);
 		}
+	}
+
+	@Test
+	void testSimpleWithdraw() {
+		//1. Setup Objects
+		
+		BankAccount testAccount = new BankAccount();
+		testAccount.deposit(25);
+		
+		//2. Call the method being tested
+		testAccount.withdraw(10);
+		
+		//3. Use assertions to verify results
+		assertEquals(15.0, testAccount.getBalance(), 0.01);	
+	}
+
+	@Test
+	void testMultipleWithdraw() {
+		//1. Setup Objects
+		
+		BankAccount testAccount = new BankAccount();
+		testAccount.deposit(25);
+		
+		//2. Call the method being tested
+		testAccount.withdraw(10);
+		testAccount.withdraw(7.5);
+		
+		//3. Use assertions to verify results
+		assertEquals(7.5, testAccount.getBalance(), 0.01);	
+	}
+
+	@Test
+	void testNegativeWithdraw() {
+		//1. Setup Objects	
+		BankAccount testAccount = new BankAccount();
+		testAccount.deposit(25);
+		
+		//2. Call the method being tested
+		try {
+			testAccount.withdraw(-20.3);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertTrue(true);
+		}
+	}
+
+	@Test
+	void testGreaterThanBalanceWithdraw() {
+		//1. Setup Objects
+		
+		BankAccount testAccount = new BankAccount();
+		testAccount.deposit(25);
+		
+		try {
+			testAccount.withdraw(100);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertTrue(true);
+		}
+	}
+
+
+	@Test
+	void testMultipleWithdrawWithError() {
+		//1. Setup Objects
+		
+		BankAccount testAccount = new BankAccount();
+		testAccount.deposit(25);
+		
+		//2. Call the method being tested
+		testAccount.withdraw(10);
+		try {
+			testAccount.withdraw(100);
+			fail();
+		} catch (IllegalArgumentException e) {
+			assertTrue(true);
+		}
+		testAccount.withdraw(7.5);
+		
+		//3. Use assertions to verify results
+		assertEquals(7.5, testAccount.getBalance(), 0.01);	
 	}
 
 }
