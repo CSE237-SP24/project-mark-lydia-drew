@@ -48,7 +48,7 @@ public class Menu {
 	//Does work - needs tests
 	public void processingUserSelection(double amount) {
 		account.deposit(amount);
-		System.out.println("Your balance is now: " + account.getBalance());
+		System.out.println("Your balance is now: " + account.getBalance() + " for " + account.getUsername());
 	}
 	
 	public BankAccount getAccount() {
