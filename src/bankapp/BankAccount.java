@@ -6,7 +6,7 @@ public class BankAccount {
 	private String username;
 	
 	//Constructors - not tested
-	public BankAccount(string userToAdd) {
+	public BankAccount(String userToAdd) {
 		this.username = userToAdd;
 		this.balance = 0;
 	}
@@ -23,7 +23,7 @@ public class BankAccount {
 	public double getBalance() {
 		return this.balance;
 	}
-	public double getUsername() {
+	public String getUsername() {
 		return this.username;
 	}
 }
