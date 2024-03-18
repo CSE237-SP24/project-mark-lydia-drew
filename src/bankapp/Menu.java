@@ -36,15 +36,27 @@ public class Menu {
 	//Code that gets user input
 	//No tests needed...for now (probably discuss in future class)
 	public double getValidUserInput() {
-		double amount = in.nextDouble();
-		while(amount < 0) {
-			System.out.println("Invalid value!");
-			System.out.println("How much money do you want to deposit?");
-			amount = in.nextDouble();
-		}
-		return amount;
+	    double amount;
+	    while (true) {
+	        String input = in.nextLine(); // Read input as a string
+
+	        try {
+	            // Attempt to parse the input as a double
+	            amount = Double.parseDouble(input);
+	            
+	            // Check if the amount is positive
+	            if (amount < 0) {
+	                System.out.println("Invalid value! Amount must be positive.");
+	                continue; // Restart the loop to prompt the user again
+	            }
+	            
+	            break; // Break out of the loop if input is valid
+	        } catch (NumberFormatException e) {
+	            System.out.println("Invalid value! Please enter a valid number.");
+	        }
+	    }
+	    return amount;
 	}
-	
 	//Does work - needs tests
 	public void processingUserSelection(double amount) {
 		account.deposit(amount);
