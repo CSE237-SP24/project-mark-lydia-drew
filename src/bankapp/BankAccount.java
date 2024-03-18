@@ -13,7 +13,10 @@ public class BankAccount {
 	
 	//public method doing some work - lots of tests
 	public void deposit(double amount) {
-		if(amount < 0) {
+		if (Double.isNaN(amount) || Double.isInfinite(amount)) {
+	        throw new IllegalArgumentException("Amount must be a valid number");
+	    }
+		else if(amount < 0) {
 			throw new IllegalArgumentException("Amount must be positive");
 		}
 		this.balance += amount;
