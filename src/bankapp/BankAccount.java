@@ -3,9 +3,11 @@ package bankapp;
 public class BankAccount {
 	
 	private double balance;
+	private String username;
 	
 	//Constructors - not tested
-	public BankAccount() {
+	public BankAccount(string userToAdd) {
+		this.username = userToAdd;
 		this.balance = 0;
 	}
 	
@@ -20,5 +22,8 @@ public class BankAccount {
 	//getters and setters - not tested
 	public double getBalance() {
 		return this.balance;
+	}
+	public double getUsername() {
+		return this.username;
 	}
 }
