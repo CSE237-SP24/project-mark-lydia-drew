@@ -35,5 +35,18 @@ class BankAccountTests {
 			assertTrue(true);
 		}
 	}
-
+	@Test
+	void testNumericDeposit() {
+		//1. Setup Objects	
+		BankAccount testAccount = new BankAccount("testUser");
+		
+		//2. Call the method being tested
+		try {
+			testAccount.deposit("kk");
+			fail();
+		} catch (IllegalArgumentException e) {
+			//we expect to end up here, -25 is a bad input
+			assertTrue(true);
+		}
+	}
 }
