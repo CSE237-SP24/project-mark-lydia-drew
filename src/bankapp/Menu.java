@@ -21,6 +21,13 @@ public class Menu {
         this.account = createAccountWithUsername();
     }
 
+	public void displayCardMenu() {
+        // Create an instance of CardMenu
+        CardMenu cardMenu = new CardMenu(account);
+        
+        // Call a method in CardMenu to display the menu
+        cardMenu.cardMenuDisplay();
+    }
     // Prompts the user for a username and creates a new BankAccount
     private BankAccount createAccountWithUsername() {
         System.out.println("Enter your username:");

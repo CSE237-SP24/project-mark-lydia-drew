@@ -1,5 +1,6 @@
 package bankapp;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class CardMenu {
@@ -8,19 +9,19 @@ public class CardMenu {
 	private Card card;
 	private BankAccount account;
 
-    public static void main(String[] args) {
-		CardMenu cardMenu = new CardMenu();
-		cardMenu.displayOptionForNumber();
-		String number = cardMenu.getValidUserInputNumber();
-        cardMenu.displayOptionForType();
-        int type = cardMenu.getValidUserInputType();
-		cardMenu.processingUserSelection(number, type);
-	}
-	
 	//Constructor
-	public CardMenu() {
+	public CardMenu(BankAccount account) {
 		this.in = new Scanner(System.in);
 		this.card = new Card();
+		this.account = account;
+	}
+
+	public void cardMenuDisplay(){
+		displayOptionForNumber();
+        String number = getValidUserInputNumber();
+        displayOptionForType();
+        int type = getValidUserInputType();
+        processingUserSelection(number, type);
 	}
 	
 	//Code that just displays stuff - no tests needed
@@ -55,6 +56,17 @@ public class CardMenu {
         card.setType(type);
 		System.out.println("Your " + card.getType() + " card (" + card.getNumber() + ") is now linked to your account.");
 	}
+
+	public void displayCardsForAccount() {
+        List<Card> cards = account.getCards();
+        if (cards.isEmpty()) {
+            System.out.println("No cards linked to this account.");
+        } else {
+            System.out.println("Cards linked to account:" + this.account);
+            for (Card card : cards) {
+                System.out.println("Card Number: " + card.getNumber() + ", Type: " + card.getType());
+            }
+        }
 	
 	public Card getCard() {
 		return card;
