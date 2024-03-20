@@ -41,4 +41,8 @@ public class Card {
         return this.type;
     }
 
+    public Card getCard(){
+        return this;
+    }
+
 }
