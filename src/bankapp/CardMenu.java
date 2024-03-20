@@ -6,6 +6,7 @@ public class CardMenu {
 
     private Scanner in;
 	private Card card;
+	private BankAccount account;
 
     public static void main(String[] args) {
 		CardMenu cardMenu = new CardMenu();
