@@ -6,13 +6,11 @@ import java.util.Scanner;
 public class CardMenu {
 
     private Scanner in;
-	private Card card;
 	private BankAccount account;
 
 	//Constructor
 	public CardMenu(BankAccount account) {
 		this.in = new Scanner(System.in);
-		this.card = new Card();
 		this.account = account;
 	}
 
@@ -52,6 +50,7 @@ public class CardMenu {
 	
 	//Does work - needs tests
 	public void processingUserSelection(String number, int type) {
+		Card card = new Card();
 		card.setNumber(number);
         card.setType(type);
 		System.out.println("Your " + card.getType() + " card (" + card.getNumber() + ") is now linked to your account.");
