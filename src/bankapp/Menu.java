@@ -10,9 +10,6 @@ public class Menu {
 	//not tested
 	public static void main(String[] args) {
 		Menu mainMenu = new Menu();
-		mainMenu.displayingOptions();
-		double amount = mainMenu.getValidUserInput();
-		mainMenu.processingUserSelection(amount);
 	}
 	
 	//Constructor
@@ -30,12 +27,41 @@ public class Menu {
 	
 	//Code that just displays stuff - no tests needed
 	public void displayingOptions() {
-		System.out.println("How much money do you want to deposit?");
+		System.out.print("To Deposit money enter \"d\". To withdraw money enter \"w\".\n
+		To go to card menu enter \"c\". To quit enter \"q\": ");
+	}
+
+	
+	public void infiniteMenu(){
+		boolean done=false;
+		while(!done){
+			displayingOptions();
+			String input = in.nextLine();
+			switch(input.toLowercase()){
+				case "d":
+					System.out.print("How much would you like to deposit: ");
+					double amount= getValidDoubleUserInput();
+					break;
+				case "w":
+					System.out.print("How much would you like to withdraw: ");
+					double amount= getValidDoubleUserInput();
+					break;
+				case "c":
+
+					break;
+				case "q":
+					done=true;
+					break;
+				default:
+					System.out.println("Invalid input.");
+			}
+		}
+		
 	}
 	
 	//Code that gets user input
 	//No tests needed...for now (probably discuss in future class)
-	public double getValidUserInput() {
+	public double getValidDoubleUserInput() {
 	    double amount;
 	    while (true) {
 	        String input = in.nextLine(); // Read input as a string
@@ -57,6 +83,7 @@ public class Menu {
 	    }
 	    return amount;
 	}
+
 	//Does work - needs tests
 	public void processingUserSelection(double amount) {
 		account.deposit(amount);
