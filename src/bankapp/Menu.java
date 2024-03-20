@@ -10,6 +10,7 @@ public class Menu {
 	//not tested
 	public static void main(String[] args) {
 		Menu mainMenu = new Menu();
+		infiniteMenu();
 	}
 	
 	//Constructor
@@ -41,13 +42,19 @@ public class Menu {
 				case "d":
 					System.out.print("How much would you like to deposit: ");
 					double amount= getValidDoubleUserInput();
+					account.deposit(amount);
+					System.out.println();
+					processingUserSelection();
 					break;
 				case "w":
 					System.out.print("How much would you like to withdraw: ");
 					double amount= getValidDoubleUserInput();
+					account.withdraw(amount);
+					System.out.println();
+					processingUserSelection();
 					break;
 				case "c":
-
+					System.out.println("NOT YET IMPLEMENTED");
 					break;
 				case "q":
 					done=true;
@@ -56,7 +63,6 @@ public class Menu {
 					System.out.println("Invalid input.");
 			}
 		}
-		
 	}
 	
 	//Code that gets user input
@@ -85,8 +91,7 @@ public class Menu {
 	}
 
 	//Does work - needs tests
-	public void processingUserSelection(double amount) {
-		account.deposit(amount);
+	public void processingUserSelection() {
 		System.out.println("Your balance is now: " + account.getBalance() + " for " + account.getUsername());
 	}
 	
