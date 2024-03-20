@@ -9,6 +9,7 @@ public class BankAccount {
 	public BankAccount(String userToAdd) {
 		this.username = userToAdd;
 		this.balance = 0;
+		system.out.println("foo");
 	}
 	
 	//public method doing some work - lots of tests
