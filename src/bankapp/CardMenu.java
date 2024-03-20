@@ -68,8 +68,5 @@ public class CardMenu {
             }
         }
 	
-	public Card getCard() {
-		return card;
 	}
-
 }
