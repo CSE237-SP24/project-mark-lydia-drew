@@ -49,17 +49,25 @@ public class Menu {
 			switch(input.toLowerCase()){
 				case "d":
 					System.out.print("How much would you like to deposit: ");
-					double dAmount= getValidUserInput();
+					double dAmount= getValidDoubleUserInput();
 					account.deposit(dAmount);
 					System.out.println();
 					processingUserSelection();
 					break;
-				case "w":
-					System.out.print("How much would you like to withdraw: ");
-					double wAmount= getValidUserInput();
-					account.withdraw(wAmount);
-					System.out.println();
-					processingUserSelection();
+					case "w":
+					while (true) {
+						System.out.print("How much would you like to withdraw: ");
+						double wAmount = getValidDoubleUserInput();
+						try {
+							account.withdraw(wAmount);
+							System.out.println();
+							processingUserSelection();
+							break; // Break out of the loop if withdrawal is successful
+						} catch (IllegalArgumentException e) {
+							System.out.println("Error: " + e.getMessage() + " Try again.");
+							// Retry getting valid amount to withdraw
+						}
+					}
 					break;
 				case "c":
 					displayCardMenu(account);
@@ -92,9 +100,11 @@ public class Menu {
 	            }
 	            
 	            break; // Break out of the loop if input is valid
-	        } catch (NumberFormatException e) {
-	            System.out.println("Invalid value! Please enter a valid number.");
-	    	}
+	        } catch (IllegalArgumentException e) {
+				// Handle the exception (e.g., log it, display an error message)
+				System.out.println("Error: " + e.getMessage() + " Try again.");
+				continue;
+			}
 		}
 	    return amount;
 	}
