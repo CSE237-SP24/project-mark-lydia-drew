@@ -76,7 +76,7 @@ public class Menu {
 	
 	//Code that gets user input
 	//No tests needed...for now (probably discuss in future class)
-	public double getValidUserInput() {
+	public double getValidDoubleUserInput() {
 	    double amount;
 	    while (true) {
 	        String input = in.nextLine(); // Read input as a string
@@ -98,6 +98,7 @@ public class Menu {
 		}
 	    return amount;
 	}
+
 	//Does work - needs tests
 	public void processingUserSelection() {
 		System.out.println("Your balance is now: " + account.getBalance() + " for " + account.getUsername());
