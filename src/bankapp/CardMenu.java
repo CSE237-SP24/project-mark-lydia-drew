@@ -1,7 +1,6 @@
 package bankapp;
 
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class CardMenu {
 
@@ -15,13 +14,49 @@ public class CardMenu {
 	}
 
 	public void cardMenuDisplay(){
-		displayOptionForNumber();
-        String number = getValidUserInputNumber();
-        displayOptionForType();
-        int type = getValidUserInputType();
-        processingUserSelection(number, type);
+		infiniteCards();
 	}
 	
+	public void infiniteCards() {
+		boolean userQuit = false;
+		System.out.println("Welcome to your card menu.");
+	
+		while (!userQuit) {
+			// Displaying options
+			System.out.println("Choose an option:");
+			System.out.println("1. Display cards linked to account");
+			System.out.println("2. Add a new card");
+			System.out.println("3. Quit");
+	
+			// Getting user input
+			String input = in.nextLine();
+	
+			// Processing user input
+			switch (input.toLowerCase()) {
+				case "1":
+					displayCardsForAccount();
+					break;
+				case "2":
+					addCard();
+					break;
+				case "3":
+					userQuit = true;
+					System.out.println("Exiting card menu.");
+					break;
+				default:
+					System.out.println("Invalid input. Please try again.");
+			}
+		}
+	}
+	public void addCard() {
+		displayOptionForNumber(); // Display prompt for card number
+		String number = getValidUserInputNumber(); // Get valid card number
+		displayOptionForType(); // Display prompt for card type
+		int type = getValidUserInputType(); // Get valid card type
+		Card card = new Card(number, type); // Create new Card object
+		account.addCard(card); // Add card to account
+		System.out.println("Your " + (card.getType()) + " card (" + card.getNumber() + ") is now linked to your account.");
+	}
 	//Code that just displays stuff - no tests needed
 	public void displayOptionForNumber() {
 		System.out.println("Please enter your card number: ");
@@ -61,7 +96,7 @@ public class CardMenu {
         if (cards.isEmpty()) {
             System.out.println("No cards linked to this account.");
         } else {
-            System.out.println("Cards linked to account:" + this.account);
+            System.out.println("Cards linked to account:" + this.account.getUsername());
             for (Card card : cards) {
                 System.out.println("Card Number: " + card.getNumber() + ", Type: " + card.getType());
             }

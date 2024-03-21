@@ -1,6 +1,6 @@
 package bankapp;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Menu {
 
@@ -19,7 +19,7 @@ public class Menu {
         this.account = createAccountWithUsername();
     }
 
-	public void displayCardMenu() {
+	public void displayCardMenu(BankAccount account) {
         // Create an instance of CardMenu
         CardMenu cardMenu = new CardMenu(account);
         
@@ -62,10 +62,11 @@ public class Menu {
 					processingUserSelection();
 					break;
 				case "c":
-					System.out.println("NOT YET IMPLEMENTED");
+					displayCardMenu(account);
 					break;
 				case "q":
 					done=true;
+					System.out.println("Thank you. Have a nice day!");
 					break;
 				default:
 					System.out.println("Invalid input.");
@@ -93,8 +94,8 @@ public class Menu {
 	            break; // Break out of the loop if input is valid
 	        } catch (NumberFormatException e) {
 	            System.out.println("Invalid value! Please enter a valid number.");
-	        }
-	    }
+	    	}
+		}
 	    return amount;
 	}
 	//Does work - needs tests

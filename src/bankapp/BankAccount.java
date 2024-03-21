@@ -17,25 +17,27 @@ public class BankAccount {
 	
 	//public method doing some work - lots of tests
 	public void deposit(double amount) {
-		if (Double.isNaN(amount) || Double.isInfinite(amount)) {
-	        throw new IllegalArgumentException("Amount must be a valid number");
-	    }
-		else if(amount < 0) {
-			throw new IllegalArgumentException("Amount must be positive");
+		try {
+			if (Double.isNaN(amount) || Double.isInfinite(amount) || amount < 0) {
+				throw new IllegalArgumentException("Invalid arguments! Check your deposit amount.");
+			}
+			this.balance += amount;
+		} catch (IllegalArgumentException e) {
+			// Handle the exception (e.g., log it, display an error message)
+			System.out.println("Error: " + e.getMessage());
 		}
-		this.balance += amount;
 	}
-
+	
 	public void withdraw(double amount) {
-		if (Double.isNaN(amount) || Double.isInfinite(amount)) {
-	        throw new IllegalArgumentException("Amount must be a valid number");
-	    }
-		else if(amount < 0) {
-			throw new IllegalArgumentException("Amount must be positive");
-		}else if(amount>balance){
-			throw new IllegalArgumentException("Amount cannont be greater than balance");
+		try {
+			if (Double.isNaN(amount) || Double.isInfinite(amount) || amount < 0 || amount > balance) {
+				throw new IllegalArgumentException("Invalid amount! Check your withdrawal amount.");
+			}
+			this.balance -= amount;
+		} catch (IllegalArgumentException e) {
+			// Handle the exception (e.g., log it, display an error message)
+			System.out.println("Error: " + e.getMessage());
 		}
-		this.balance -= amount;
 	}
 	
 	//getters and setters - not tested
@@ -45,10 +47,7 @@ public class BankAccount {
 	public String getUsername() {
 		return this.username;
 	}
-	public void addCard(String number, int type) {
-		Card newCard = new Card();
-		newCard.setNumber(number);
-		newCard.setType(type);
+	public void addCard(Card newCard) {
 		cards.add(newCard);
 	}
 
