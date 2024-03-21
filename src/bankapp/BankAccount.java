@@ -17,27 +17,17 @@ public class BankAccount {
 	
 	//public method doing some work - lots of tests
 	public void deposit(double amount) {
-		try {
 			if (Double.isNaN(amount) || Double.isInfinite(amount) || amount < 0) {
 				throw new IllegalArgumentException("Invalid arguments! Check your deposit amount.");
 			}
 			this.balance += amount;
-		} catch (IllegalArgumentException e) {
-			// Handle the exception (e.g., log it, display an error message)
-			System.out.println("Error: " + e.getMessage());
-		}
 	}
 	
 	public void withdraw(double amount) {
-		try {
 			if (Double.isNaN(amount) || Double.isInfinite(amount) || amount < 0 || amount > balance) {
 				throw new IllegalArgumentException("Invalid amount! Check your withdrawal amount.");
 			}
 			this.balance -= amount;
-		} catch (IllegalArgumentException e) {
-			// Handle the exception (e.g., log it, display an error message)
-			System.out.println("Error: " + e.getMessage());
-		}
 	}
 	
 	//getters and setters - not tested

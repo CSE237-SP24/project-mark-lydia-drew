@@ -49,13 +49,27 @@ public class CardMenu {
 		}
 	}
 	public void addCard() {
-		displayOptionForNumber(); // Display prompt for card number
-		String number = getValidUserInputNumber(); // Get valid card number
-		displayOptionForType(); // Display prompt for card type
-		int type = getValidUserInputType(); // Get valid card type
-		Card card = new Card(number, type); // Create new Card object
-		account.addCard(card); // Add card to account
-		System.out.println("Your " + (card.getType()) + " card (" + card.getNumber() + ") is now linked to your account.");
+		try{
+			displayOptionForNumber(); // Display prompt for card number
+			String number = getValidUserInputNumber(); // Get valid card number
+			displayOptionForType(); // Display prompt for card type
+			int type = getValidUserInputType(); // Get valid card type
+			Card card = new Card(number, type); // Create new Card object
+			account.addCard(card); // Add card to account
+			System.out.println("Your " + (card.getType()) + " card (" + card.getNumber() + ") is now linked to your account.");
+		} catch (IllegalArgumentException e) {
+			System.out.println("Invalid card number: " + e.getMessage());
+			// Consume the invalid input
+			in.nextLine();
+			// Retry getting valid card type
+			addCard();
+		} catch (InputMismatchException e) {
+			System.out.println("Invalid input for card type. Please enter 0 or 1.");
+			// Consume the invalid input
+			in.nextLine();
+			// Retry getting valid card type
+			addCard();
+		}
 	}
 	//Code that just displays stuff - no tests needed
 	public void displayOptionForNumber() {
