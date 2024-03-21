@@ -9,6 +9,23 @@ public class Card {
         this.type = null;
     }
 
+    public Card(String number, int type) {
+        this.setNumber(number);
+        this.setType(type);
+    }
+
+    // Getters and setters
+    public String getNumber() {
+        return number;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Card getCard(){
+        return this;
+    }
     public void setNumber(String number) {
         if (number.length() != 16) {
             throw new IllegalArgumentException("Card number must have 16 digits");
@@ -33,16 +50,5 @@ public class Card {
         }
     }
 
-    public String getNumber() {
-        return this.number;
-    }
-
-    public String getType() {
-        return this.type;
-    }
-
-    public Card getCard(){
-        return this;
-    }
 
 }
