@@ -1,6 +1,6 @@
 package bankapp;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Menu {
 
@@ -10,7 +10,7 @@ public class Menu {
 	//not tested
 	public static void main(String[] args) {
 		Menu mainMenu = new Menu();
-		infiniteMenu();
+		mainMenu.infiniteMenu();
 	}
 	
 	//Constructor
@@ -19,6 +19,13 @@ public class Menu {
         this.account = createAccountWithUsername();
     }
 
+	public void displayCardMenu(BankAccount account) {
+        // Create an instance of CardMenu
+        CardMenu cardMenu = new CardMenu(account);
+        
+        // Call a method in CardMenu to display the menu
+        cardMenu.cardMenuDisplay();
+    }
     // Prompts the user for a username and creates a new BankAccount
     private BankAccount createAccountWithUsername() {
         System.out.println("Enter your username:");
@@ -28,36 +35,38 @@ public class Menu {
 	
 	//Code that just displays stuff - no tests needed
 	public void displayingOptions() {
-		System.out.print("To Deposit money enter \"d\". To withdraw money enter \"w\".\n
-		To go to card menu enter \"c\". To quit enter \"q\": ");
-	}
-
+			System.out.println("How much money do you want to deposit?");
+			System.out.print("To Deposit money enter \"d\". To withdraw money enter \"w\".\n" +
+                 "To go to card menu enter \"c\". To quit enter \"q\": ");
+		}
+	
 	
 	public void infiniteMenu(){
 		boolean done=false;
 		while(!done){
 			displayingOptions();
 			String input = in.nextLine();
-			switch(input.toLowercase()){
+			switch(input.toLowerCase()){
 				case "d":
 					System.out.print("How much would you like to deposit: ");
-					double amount= getValidDoubleUserInput();
-					account.deposit(amount);
+					double dAmount= getValidUserInput();
+					account.deposit(dAmount);
 					System.out.println();
 					processingUserSelection();
 					break;
 				case "w":
 					System.out.print("How much would you like to withdraw: ");
-					double amount= getValidDoubleUserInput();
-					account.withdraw(amount);
+					double wAmount= getValidUserInput();
+					account.withdraw(wAmount);
 					System.out.println();
 					processingUserSelection();
 					break;
 				case "c":
-					System.out.println("NOT YET IMPLEMENTED");
+					displayCardMenu(account);
 					break;
 				case "q":
 					done=true;
+					System.out.println("Thank you. Have a nice day!");
 					break;
 				default:
 					System.out.println("Invalid input.");
@@ -85,8 +94,8 @@ public class Menu {
 	            break; // Break out of the loop if input is valid
 	        } catch (NumberFormatException e) {
 	            System.out.println("Invalid value! Please enter a valid number.");
-	        }
-	    }
+	    	}
+		}
 	    return amount;
 	}
 
@@ -94,7 +103,11 @@ public class Menu {
 	public void processingUserSelection() {
 		System.out.println("Your balance is now: " + account.getBalance() + " for " + account.getUsername());
 	}
-	
+	//Testing later
+	public void addCard() {
+		System.out.println("Do you want to add a card? ");
+	}
+
 	public BankAccount getAccount() {
 		return account;
 	}
