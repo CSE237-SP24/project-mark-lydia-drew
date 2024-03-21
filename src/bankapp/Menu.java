@@ -69,7 +69,11 @@ public class Menu {
 		account.deposit(amount);
 		System.out.println("Your balance is now: " + account.getBalance() + " for " + account.getUsername());
 	}
-	
+	//Testing later
+	public void addCard() {
+		System.out.println("Do you want to add a card? ");
+	}
+
 	public BankAccount getAccount() {
 		return account;
 	}
