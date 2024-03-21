@@ -49,14 +49,14 @@ public class Menu {
 			switch(input.toLowerCase()){
 				case "d":
 					System.out.print("How much would you like to deposit: ");
-					double dAmount= getValidUserInput();
+					double dAmount= getValidDoubleUserInput();
 					account.deposit(dAmount);
 					System.out.println();
 					processingUserSelection();
 					break;
 				case "w":
 					System.out.print("How much would you like to withdraw: ");
-					double wAmount= getValidUserInput();
+					double wAmount= getValidDoubleUserInput();
 					account.withdraw(wAmount);
 					System.out.println();
 					processingUserSelection();
