@@ -39,46 +39,59 @@ public class Menu {
                  "To go to card menu enter \"c\". To quit enter \"q\": ");
 		}
 	
+	//Menu method to loop until quit
+	public void infiniteMenu() {
+	    boolean done = false;
+	    while (!done) {
+	    	//Display options and send to helpers
+	        displayingOptions();
+	        String input = in.nextLine();
+	        done = menuLoop(input);
+	    }
+	}
 	
-	public void infiniteMenu(){
-		boolean done=false;
-		while(!done){
-			displayingOptions();
-			String input = in.nextLine();
-			switch(input.toLowerCase()){
-				case "d":
-					System.out.print("How much would you like to deposit: ");
-					String dAmount= getValidDoubleUserInput();
-					account.deposit(dAmount);
-					System.out.println();
-					processingUserSelection();
-					break;
-				case "w":
-					while (true) {
-						System.out.print("How much would you like to withdraw: ");
-						String wAmount = getValidDoubleUserInput();
-						try {
-							account.withdraw(wAmount);
-							System.out.println();
-							processingUserSelection();
-							break; // Break out of the loop if withdrawal is successful
-						} catch (IllegalArgumentException e) {
-							System.out.println("Error: " + e.getMessage() + " Try again.");
-							// Retry getting valid amount to withdraw
-						}
-					}
-					break;
-				case "c":
-					displayCardMenu(account);
-					break;
-				case "q":
-					done=true;
-					System.out.println("Thank you. Have a nice day!");
-					break;
-				default:
-					System.out.println("Invalid input.");
-			}
+	private boolean menuLoop(String input) {
+		switch (input.toLowerCase()) {
+        case "d":
+            handleDeposit();
+            return false; // Continue loop
+        case "w":
+            handleWithdrawal();
+            return false; // Continue loop
+        case "c":
+            displayCardMenu(account);
+            return false; // Continue loop
+        case "q":
+            System.out.println("Thank you. Have a nice day!");
+            return true; // Exit loop
+        default:
+            System.out.println("Invalid input.");
+            return false; // Continue loop
 		}
+	}
+
+	private void handleDeposit() {
+	    System.out.print("How much would you like to deposit: ");
+	    String dAmount = getValidDoubleUserInput();
+	    account.deposit(dAmount);
+	    System.out.println();
+	    processingUserSelection();
+	}
+
+	private void handleWithdrawal() {
+	    while (true) {
+	        System.out.print("How much would you like to withdraw: ");
+	        String wAmount = getValidDoubleUserInput();
+	        try {
+	            account.withdraw(wAmount);
+	            System.out.println();
+	            processingUserSelection();
+	            break; // Break out of the loop if withdrawal is successful
+	        } catch (IllegalArgumentException e) {
+	            System.out.println("Error: " + e.getMessage() + " Try again.");
+	            // Retry getting valid amount to withdraw
+	        }
+	    }
 	}
 	
 	//Code that gets user input
@@ -87,17 +100,14 @@ public class Menu {
 	    double amount;
 	    while (true) {
 	        String input = in.nextLine(); // Read input as a string
-
 	        try {
 	            // Attempt to parse the input as a double
 	            amount = Double.parseDouble(input);
-	            
 	            // Check if the amount is positive
 	            if (amount < 0) {
 	                System.out.println("Invalid value! Amount must be positive.");
 	                continue; // Restart the loop to prompt the user again
 	            }
-	            
 	            break; // Break out of the loop if input is valid
 	        } catch (IllegalArgumentException e) {
 				// Handle the exception (e.g., log it, display an error message)
