@@ -162,7 +162,7 @@ class BankAccountTests {
 	}
 	@Test
 	void testAddCard() {
-		BankAccount testAccount = new BankAccount();
+		BankAccount testAccount = new BankAccount("testuser");
 		testAccount.addCard("1234123412341234", 1);
 		int numberOfCards = testAccount.getCards().size();
 		assertEquals(1, numberOfCards);
@@ -170,7 +170,7 @@ class BankAccountTests {
 
 	@Test
 	void testAddMultipleCards() {
-		BankAccount testAccount = new BankAccount();
+		BankAccount testAccount = new BankAccount("testuser");
 		testAccount.addCard("0000000000000000", 1);
 		testAccount.addCard("2468246824682468", 0);
 		testAccount.addCard("1111111111111111", 0);
@@ -180,7 +180,7 @@ class BankAccountTests {
 
 	@Test
 	void testRemoveCard() {
-		BankAccount testAccount = new BankAccount();
+		BankAccount testAccount = new BankAccount("testuser");
 		testAccount.addCard("1234123412341234", 1);
 		testAccount.removeCard("1234123412341234");
 		int numberOfCards = testAccount.getCards().size();
@@ -189,7 +189,7 @@ class BankAccountTests {
 
 	@Test
 	void testRemoveCardInvalid() {
-		BankAccount testAccount = new BankAccount();
+		BankAccount testAccount = new BankAccount("testuser");
 		testAccount.addCard("0000000000000000", 1);
 		testAccount.addCard("2468246824682468", 0);
 		testAccount.addCard("1111111111111111", 0);
