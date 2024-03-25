@@ -2,6 +2,8 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 import bankapp.BankAccount;
@@ -11,14 +13,21 @@ import bankapp.CardMenu;
 public class CardMenuTests {
 
     @Test
-	void testNewCard() {
+	void testAddCard() {
 		CardMenu m = new CardMenu(new BankAccount("testuser"));
-		//user has provided a debit card with the number "0000111122223333"
-		m.processingUserSelection("0000111122223333", 1);
-		
-		Card card = m.getCard();
-		assertEquals("0000111122223333", card.getNumber());
-        assertEquals("debit", card.getType());
+		m.addCard();
+		assertEquals(1, m.numberOfCards());
 	}
+    
+    @Test
+	void testAddMultipleCards() {
+		CardMenu m = new CardMenu(new BankAccount("testuser"));
+		m.addCard();
+		m.addCard();
+		m.addCard();
+		assertEquals(3, m.numberOfCards());
+	}
+    
+    
 
 }

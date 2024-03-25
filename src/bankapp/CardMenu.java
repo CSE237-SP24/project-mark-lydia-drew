@@ -117,4 +117,8 @@ public class CardMenu {
         }
 	
 	}
+	
+	public int numberOfCards() {
+		return account.getCards().size();
+	}
 }
