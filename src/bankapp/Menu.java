@@ -35,7 +35,6 @@ public class Menu {
 	
 	//Code that just displays stuff - no tests needed
 	public void displayingOptions() {
-			System.out.println("How much money do you want to deposit?");
 			System.out.print("To Deposit money enter \"d\". To withdraw money enter \"w\".\n" +
                  "To go to card menu enter \"c\". To quit enter \"q\": ");
 		}
@@ -54,7 +53,7 @@ public class Menu {
 					System.out.println();
 					processingUserSelection();
 					break;
-					case "w":
+				case "w":
 					while (true) {
 						System.out.print("How much would you like to withdraw: ");
 						double wAmount = getValidDoubleUserInput();
