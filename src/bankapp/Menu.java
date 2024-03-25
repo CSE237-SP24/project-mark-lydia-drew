@@ -48,7 +48,7 @@ public class Menu {
 			switch(input.toLowerCase()){
 				case "d":
 					System.out.print("How much would you like to deposit: ");
-					double dAmount= getValidDoubleUserInput();
+					String dAmount= getValidDoubleUserInput();
 					account.deposit(dAmount);
 					System.out.println();
 					processingUserSelection();
@@ -56,7 +56,7 @@ public class Menu {
 				case "w":
 					while (true) {
 						System.out.print("How much would you like to withdraw: ");
-						double wAmount = getValidDoubleUserInput();
+						String wAmount = getValidDoubleUserInput();
 						try {
 							account.withdraw(wAmount);
 							System.out.println();
@@ -83,7 +83,7 @@ public class Menu {
 	
 	//Code that gets user input
 	//No tests needed...for now (probably discuss in future class)
-	public double getValidDoubleUserInput() {
+	public String getValidDoubleUserInput() {
 	    double amount;
 	    while (true) {
 	        String input = in.nextLine(); // Read input as a string
@@ -105,7 +105,7 @@ public class Menu {
 				continue;
 			}
 		}
-	    return amount;
+	    return String.valueOf(amount);
 	}
 
 	//Does work - needs tests
