@@ -23,7 +23,8 @@ public class CardMenuTests {
 		m.addCard();
 		m.addCard();
 		m.addCard();
-		assertEquals(3, m.numberOfCards());
+		m.addCard();
+		assertEquals(4, m.numberOfCards());
 	}
     
     
