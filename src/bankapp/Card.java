@@ -23,9 +23,6 @@ public class Card {
         return type;
     }
 
-    public Card getCard(){
-        return this;
-    }
     public void setNumber(String number) {
         if (number.length() != 16) {
             throw new IllegalArgumentException("Card number must have 16 digits");
