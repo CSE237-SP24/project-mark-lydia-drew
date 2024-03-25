@@ -20,34 +20,36 @@ public class CardMenu {
 	public void infiniteCards() {
 		boolean userQuit = false;
 		System.out.println("Welcome to your card menu.");
-	
 		while (!userQuit) {
 			// Displaying options
 			System.out.println("Choose an option:");
 			System.out.println("1. Display cards linked to account");
 			System.out.println("2. Add a new card");
 			System.out.println("3. Quit");
-	
 			// Getting user input
 			String input = in.nextLine();
-	
 			// Processing user input
-			switch (input.toLowerCase()) {
-				case "1":
-					displayCardsForAccount();
-					break;
-				case "2":
-					addCard();
-					break;
-				case "3":
-					userQuit = true;
-					System.out.println("Exiting card menu.");
-					break;
-				default:
-					System.out.println("Invalid input. Please try again.");
-			}
+			userQuit = cardLoop(input);
 		}
 	}
+	
+	private boolean cardLoop(String input) {
+	    switch (input.toLowerCase()) {
+	        case "1":
+	            displayCardsForAccount();
+	            return false; // Continue loop
+	        case "2":
+	            addCard();
+	            return false; // Continue loop
+	        case "3":
+	            System.out.println("Exiting card menu.");
+	            return true; // Exit loop
+	        default:
+	            System.out.println("Invalid input. Please try again.");
+	            return false; // Continue loop
+	    }
+	}
+	    
 	public void addCard() {
 		try{
 			displayOptionForNumber(); // Display prompt for card number

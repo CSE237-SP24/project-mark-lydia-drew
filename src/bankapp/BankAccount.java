@@ -16,18 +16,40 @@ public class BankAccount {
 	}
 	
 	//public method doing some work - lots of tests
-	public void deposit(double amount) {
-			if (Double.isNaN(amount) || Double.isInfinite(amount) || amount < 0) {
-				throw new IllegalArgumentException("Invalid arguments! Check your deposit amount.");
-			}
-			this.balance += amount;
+	public void deposit(String input) {
+	    double parsedAmount;
+	    try {
+	        parsedAmount = Double.parseDouble(input);
+	        if (parsedAmount < 0 || Double.isNaN(parsedAmount) || Double.isInfinite(parsedAmount)) {
+	            throw new IllegalArgumentException("Invalid deposit amount! Deposit amount should be a positive number.");
+	        }
+	        else {
+	            this.balance += parsedAmount;
+	        }
+	    } catch (NumberFormatException e) {
+	        throw new IllegalArgumentException("Invalid deposit amount! Deposit amount should be a valid number.");
+	    }
 	}
 	
-	public void withdraw(double amount) {
-			if (Double.isNaN(amount) || Double.isInfinite(amount) || amount < 0 || amount > balance) {
-				throw new IllegalArgumentException("Invalid amount! Check your withdrawal amount.");
-			}
-			this.balance -= amount;
+	public void withdraw(String input) {
+		 double parsedAmount;
+		    try {
+		        parsedAmount = Double.parseDouble(input);
+		        if (parsedAmount < 0 || Double.isNaN(parsedAmount) || Double.isInfinite(parsedAmount)) {
+		            throw new IllegalArgumentException("Invalid withdrawal amount! Withdrawal amount should be a positive number.");
+		        }
+		        else {
+		        	double test = this.balance - parsedAmount;
+		        	if (test < 0) {
+		        		throw new IllegalArgumentException("Sorry, this would overdraw your balance. Withdraw a smaller amount.");
+		        	}
+		        	else {
+		        		this.balance -= parsedAmount;
+		        	}
+		        }
+		    } catch (NumberFormatException e) {
+		        throw new IllegalArgumentException("Invalid deposit amount! Deposit amount should be a valid number.");
+		    }
 	}
 	
 	//getters and setters - not tested
@@ -46,6 +68,9 @@ public class BankAccount {
 	}
 
 	public void removeCard(String number) {
+		if (cards.isEmpty()) {
+			throw new IllegalAccessError("Empty card list");
+		}
 		int i = 0;
 		while (!cards.get(i).getNumber().equals(number)) {
 			i++;
