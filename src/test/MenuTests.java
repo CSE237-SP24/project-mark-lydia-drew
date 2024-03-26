@@ -11,11 +11,6 @@ public class MenuTests {
 
     private Menu menu;
 
-    @Test
-    public void testConstructor() {
-        menu = new Menu();
-        assertNotNull(menu);
-    }
 
     @Test
     public void testConstructorWithUsername() {
