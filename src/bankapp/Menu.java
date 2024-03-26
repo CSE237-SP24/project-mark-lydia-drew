@@ -18,11 +18,15 @@ public class Menu {
         this.in = new Scanner(System.in);
         this.account = createAccountWithUsername();
     }
+	public Menu(BankAccount account) {
+		 this.in = new Scanner(System.in);
+		 this.account = account;
+	}
 
+	//no tests needed because CardMenu has its own tests
 	public void displayCardMenu(BankAccount account) {
         // Create an instance of CardMenu
         CardMenu cardMenu = new CardMenu(account);
-        
         // Call a method in CardMenu to display the menu
         cardMenu.cardMenuDisplay();
     }
@@ -72,7 +76,7 @@ public class Menu {
 
 	private void handleDeposit() {
 	    System.out.print("How much would you like to deposit: ");
-	    String dAmount = getValidDoubleUserInput();
+	    String dAmount = getValidUserInput();
 	    account.deposit(dAmount);
 	    System.out.println();
 	    processingUserSelection();
@@ -81,7 +85,7 @@ public class Menu {
 	private void handleWithdrawal() {
 	    while (true) {
 	        System.out.print("How much would you like to withdraw: ");
-	        String wAmount = getValidDoubleUserInput();
+	        String wAmount = getValidUserInput();
 	        try {
 	            account.withdraw(wAmount);
 	            System.out.println();
@@ -93,13 +97,12 @@ public class Menu {
 	        }
 	    }
 	}
-	
-	//Code that gets user input
-	//No tests needed...for now (probably discuss in future class)
-	public String getValidDoubleUserInput() {
+
+	public String getValidUserInput() {
 	    double amount;
 	    while (true) {
 	        String input = in.nextLine(); // Read input as a string
+
 	        try {
 	            // Attempt to parse the input as a double
 	            amount = Double.parseDouble(input);
@@ -118,13 +121,8 @@ public class Menu {
 	    return String.valueOf(amount);
 	}
 
-	//Does work - needs tests
 	public void processingUserSelection() {
 		System.out.println("Your balance is now: " + account.getBalance() + " for " + account.getUsername());
-	}
-	//Testing later
-	public void addCard() {
-		System.out.println("Do you want to add a card? ");
 	}
 
 	public BankAccount getAccount() {
