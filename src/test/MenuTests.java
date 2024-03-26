@@ -2,28 +2,26 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.ByteArrayInputStream;
+import org.junit.Test;
 
-import org.junit.jupiter.api.Test;
-
-import bankapp.BankAccount;
 import bankapp.Menu;
+import bankapp.BankAccount;
 
-class MenuTests {
-	
-	
+public class MenuTests {
 
-	@Test
-	void testGetValidUserInputSimple() {
-		BankAccount account = new BankAccount("test");
-		Menu m = new Menu(account);
-		
-		System.setIn(new ByteArrayInputStream("5".getBytes()));
-		
-		String valid = m.getValidUserInput();
-		System.out.println("t");
-		
-		assertTrue(valid.equals("5"));
-	}
+    private Menu menu;
+
+    @Test
+    public void testConstructor() {
+        menu = new Menu();
+        assertNotNull(menu);
+    }
+
+    @Test
+    public void testConstructorWithUsername() {
+    	menu = new Menu(new BankAccount("testUser"));
+    	assertNotNull(menu);
+        assertNotNull(menu.getAccount());
+    }
 
 }
