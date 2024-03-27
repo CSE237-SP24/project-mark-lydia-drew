@@ -9,6 +9,12 @@ import bankapp.BankAccount;
 import bankapp.CardMenu;
 
 public class CardMenuTests {
+	
+	@Test
+	void testConstructorWithUsername() {
+		CardMenu menu = new CardMenu(new BankAccount("testUser"));
+		assertNotNull(menu);
+	}
 
     @Test
 	void testAddCard() {
@@ -26,7 +32,7 @@ public class CardMenuTests {
 		m.addCard();
 		assertEquals(4, m.numberOfCards());
 	}
-    
+
     
 
 }
