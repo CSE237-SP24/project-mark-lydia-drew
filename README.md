@@ -27,4 +27,4 @@ ITERATION 1:
 
 
   Commands to run:
-    Simply run the script.sh file.
+    Simply run the script.sh file. Currently requires you to start from scratch every time.
