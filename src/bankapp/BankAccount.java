@@ -3,7 +3,6 @@ package bankapp;
 import java.util.*;
 
 public class BankAccount {
-	
 	private double balance;
 	private String username;
 	private ArrayList<Card> cards;
@@ -17,39 +16,39 @@ public class BankAccount {
 	
 	//public method doing some work - lots of tests
 	public void deposit(String input) {
-	    double parsedAmount;
-	    try {
-	        parsedAmount = Double.parseDouble(input);
-	        if (parsedAmount < 0 || Double.isNaN(parsedAmount) || Double.isInfinite(parsedAmount)) {
-	            throw new IllegalArgumentException("Invalid deposit amount! Deposit amount should be a positive number.");
-	        }
-	        else {
-	            this.balance += parsedAmount;
-	        }
-	    } catch (NumberFormatException e) {
-	        throw new IllegalArgumentException("Invalid deposit amount! Deposit amount should be a valid number.");
-	    }
+		double parsedAmount;
+		try {
+			parsedAmount = Double.parseDouble(input);
+			if (parsedAmount < 0 || Double.isNaN(parsedAmount) || Double.isInfinite(parsedAmount)) {
+				throw new IllegalArgumentException("Invalid deposit amount! Deposit amount should be a positive number.");
+			}
+			else {
+				this.balance += parsedAmount;
+			}
+		}catch (NumberFormatException e) {
+			throw new IllegalArgumentException("Invalid deposit amount! Deposit amount should be a valid number.");
+		}
 	}
 	
 	public void withdraw(String input) {
-		 double parsedAmount;
-		    try {
-		        parsedAmount = Double.parseDouble(input);
-		        if (parsedAmount < 0 || Double.isNaN(parsedAmount) || Double.isInfinite(parsedAmount)) {
-		            throw new IllegalArgumentException("Invalid withdrawal amount! Withdrawal amount should be a positive number.");
-		        }
-		        else {
-		        	double test = this.balance - parsedAmount;
-		        	if (test < 0) {
-		        		throw new IllegalArgumentException("Sorry, this would overdraw your balance. Withdraw a smaller amount.");
-		        	}
-		        	else {
-		        		this.balance -= parsedAmount;
-		        	}
-		        }
-		    } catch (NumberFormatException e) {
-		        throw new IllegalArgumentException("Invalid deposit amount! Deposit amount should be a valid number.");
-		    }
+		double parsedAmount;
+		try {
+			parsedAmount = Double.parseDouble(input);
+			if (parsedAmount < 0 || Double.isNaN(parsedAmount) || Double.isInfinite(parsedAmount)) {
+				throw new IllegalArgumentException("Invalid withdrawal amount! Withdrawal amount should be a positive number.");
+			}
+			else {
+				double test = this.balance - parsedAmount;
+				if (test < 0) {
+					throw new IllegalArgumentException("Sorry, this would overdraw your balance. Withdraw a smaller amount.");
+				}
+				else {
+					this.balance -= parsedAmount;
+				}
+			}
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException("Invalid deposit amount! Deposit amount should be a valid number.");
+		}
 	}
 	
 	//getters and setters - not tested
@@ -62,11 +61,11 @@ public class BankAccount {
 	public void addCard(Card newCard) {
 		cards.add(newCard);
 	}
-
+	
 	public ArrayList<Card> getCards() {
 		return this.cards;
 	}
-
+	
 	public void removeCard(String number) {
 		if (cards.isEmpty()) {
 			throw new IllegalAccessError("Empty card list");
