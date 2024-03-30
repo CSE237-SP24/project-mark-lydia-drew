@@ -46,22 +46,25 @@ public class Menu {
 	
 	//Menu method to loop until quit
 	public void infiniteMenu() {
-		boolean done = false;
-		while (!done) {
+		while (true) {
 			//Display options and send to helpers
 			displayingOptions();
 			String input = in.nextLine();
-			done = menuLoop(input);
+			if(menuLoop(input)) break;
 		}
 	}
 	
 	private boolean menuLoop(String input) {
 		switch (input.toLowerCase()) {
 			case "1":
-				handleDeposit();
+				System.out.print("How much would you like to deposit: ");
+				String dAmount = getValidUserInput();
+				handleDeposit(dAmount);
 				return false; // Continue loop
 			case "2":
-				handleWithdrawal();
+				System.out.print("How much would you like to withdraw: ");
+				String wAmount = getValidUserInput();
+				handleWithdrawal(wAmount);
 				return false; // Continue loop
 			case "3":
 				displayCardMenu(account);
@@ -75,27 +78,23 @@ public class Menu {
 		}
 	}
 	
-	private void handleDeposit() {
-		System.out.print("How much would you like to deposit: ");
-		String dAmount = getValidUserInput();
-		account.deposit(dAmount);
-		out.println();
-		processingUserSelection();
+	private void handleDeposit(String dAmount) {
+		try {
+			account.deposit(dAmount);
+			out.println();
+			processingUserSelection();
+		}catch(IllegalArgumentException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
 	}
 	
-	private void handleWithdrawal() {
-		while (true) {
-			System.out.print("How much would you like to withdraw: ");
-			String wAmount = getValidUserInput();
-			try {
-				account.withdraw(wAmount);
-				out.println();
-				processingUserSelection();
-				break; // Break out of the loop if withdrawal is successful
-			} catch (IllegalArgumentException e) {
-				out.println("Error: " + e.getMessage() + " Try again.");
-				// Retry getting valid amount to withdraw
-			}
+	private void handleWithdrawal(String wAmount) {
+		try {
+			account.withdraw(wAmount);
+			out.println();
+			processingUserSelection();
+		} catch (IllegalArgumentException e) {
+			System.out.println("Error: " + e.getMessage());
 		}
 	}
 	
