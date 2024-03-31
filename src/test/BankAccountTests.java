@@ -209,7 +209,7 @@ class BankAccountTests {
 		try {
 			testAccount.removeCard(fakeCard.getNumber());
 			fail();
-		} catch (IllegalAccessError e) {
+		} catch (IllegalArgumentException e) {
 			//we expect to end up here, the card fakeCard does not exist
 			assertTrue(true);
 		}

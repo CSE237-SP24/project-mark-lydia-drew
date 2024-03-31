@@ -21,7 +21,8 @@ public class CardMenu {
 			System.out.println("Choose an option:");
 			System.out.println("1. Display cards linked to account");
 			System.out.println("2. Add a new card");
-			System.out.println("3. Quit");
+			System.out.println("3. Remove a card");
+			System.out.println("4. Quit");
 			// Getting user input
 			String input = in.nextLine();
 			// Processing user input
@@ -37,10 +38,12 @@ public class CardMenu {
 	            addCard();
 	            return false; // Continue loop
 	        case "3":
+	        	removeCard();
+	        	return false;
+	        case "4":
 	            System.out.println("Exiting card menu.");
 	            return true; // Exit loop
 	        default:
-	            System.out.println("Invalid input. Please try again.");
 	            return false; // Continue loop
 	    }
 	}
@@ -67,6 +70,23 @@ public class CardMenu {
 			addCard();
 		}
 	}
+	
+	public void removeCard() {
+		try {
+			displayOptionForNumber();
+			String number = getValidUserInputNumber();
+			account.removeCard(number);
+			System.out.println("Your card has been removed.");
+			displayCardsForAccount();
+		} catch (IllegalArgumentException e) {
+			System.out.println("Your card list is empty.");
+			cardMenuDisplay();
+		} catch (IllegalAccessError e) {
+			System.out.println("This card is not linked to your account.");
+			cardMenuDisplay();
+		}
+	}
+	
 	//Code that just displays stuff - no tests needed
 	public void displayOptionForNumber() {
 		System.out.println("Please enter your card number: ");
@@ -97,6 +117,7 @@ public class CardMenu {
 		card.setNumber(number);
 		card.setType(type);
 		System.out.println("Your " + card.getType() + " card (" + card.getNumber() + ") is now linked to your account.");
+		System.out.println();
 	}
 	
 	public void displayCardsForAccount() {
@@ -104,7 +125,7 @@ public class CardMenu {
 		if (cards.isEmpty()) {
 			System.out.println("No cards linked to this account.");
 		}else {
-			System.out.println("Cards linked to account:" + this.account.getUsername());
+			System.out.println("Cards linked to account: " + this.account.getUsername());
 			for (Card card : cards) {
 				System.out.println("Card Number: " + card.getNumber() + ", Type: " + card.getType());
 			}

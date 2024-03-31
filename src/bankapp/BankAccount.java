@@ -68,13 +68,13 @@ public class BankAccount {
 	
 	public void removeCard(String number) {
 		if (cards.isEmpty()) {
-			throw new IllegalAccessError("Empty card list");
+			throw new IllegalArgumentException();
 		}
 		int i = 0;
 		while (!cards.get(i).getNumber().equals(number)) {
 			i++;
 			if (i > cards.size()-1) {
-				throw new IllegalAccessError("This card does not exist");
+				throw new IllegalAccessError();
 			}
 		}
 		cards.remove(i);
