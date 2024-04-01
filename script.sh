@@ -17,8 +17,5 @@ cd ..
 # Run the Java program
 java -cp .:src bankapp.Menu
 
-# After the Java program finishes, save data to accounts.txt
-echo "Saving data to accounts.txt..."
-
 # Clean up compiled Java files
 rm -rf bankapp

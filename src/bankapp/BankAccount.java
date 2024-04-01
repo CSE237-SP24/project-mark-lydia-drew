@@ -100,7 +100,7 @@ public class BankAccount {
 	            writer.println("Balance: " + balance);
 	            writer.println("Cards:");
 	            for (Card card : cards) {
-	                writer.print(card.getNumber() + "  "+ card.getType());
+	                writer.println(card.getNumber() + "  "+ card.getTypeNum());
 	            }
 	        } catch (IOException e) {
 	        	// Handle the exception, for example, by printing an error message
