@@ -1,2 +1,5 @@
 bin/
 *.class
+src/accountData/
+accountData/
+.settings
