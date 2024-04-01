@@ -3,24 +3,31 @@ package bankapp;
 public class Card {
     private String number;
     private String type;
+    private int typeNum;
 
     public Card() {
         this.number = null;
         this.type = null;
+        this.typeNum = Integer.MIN_VALUE;
     }
 
     public Card(String number, int type) {
         this.setNumber(number);
         this.setType(type);
+        this.typeNum = type;
     }
 
     // Getters and setters
     public String getNumber() {
-        return number;
+        return this.number;
     }
 
     public String getType() {
-        return type;
+        return this.type;
+    }
+
+    public int getTypeNum(){
+        return this.typeNum;
     }
 
     public void setNumber(String number) {
@@ -42,8 +49,10 @@ public class Card {
         }
         if (type == 0) {
             this.type = "credit";
+            this.typeNum = 0;
         } else {
             this.type = "debit";
+            this.typeNum = 1;
         }
     }
 
