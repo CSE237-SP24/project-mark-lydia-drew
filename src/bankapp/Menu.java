@@ -241,9 +241,14 @@ public class Menu {
 	        }
 	    }
 		private BankAccount readAccountFromLine(Scanner scanner) {
-			// Read username, password, and balance from the file
-			scanner.nextLine();
-			String username = scanner.nextLine().substring(10); // Assuming "Username: " is 10 characters long
+			String test = scanner.nextLine();
+			String username = null;
+			if (test.equals("ACCOUNT HEADER")) {
+				 username = scanner.nextLine().substring(10);
+			}
+			else {
+				 username = test.substring(10);
+			}
 			String password = scanner.nextLine().substring(10); // Assuming "Password: " is 10 characters long
 			double balance = Double.parseDouble(scanner.nextLine().substring(9)); // Assuming "Balance: " is 9 characters long
 			// Read cards
@@ -251,7 +256,7 @@ public class Menu {
 			scanner.nextLine(); // Skip the "Cards:" line
 			while (scanner.hasNextLine()) {
 				String cardLine = scanner.nextLine();
-				if (cardLine.equals("ACCOUNT HEADER")) {
+				if (cardLine.equals("ACCOUNT HEADER") ) {
                     break; // Stop reading cards if next account header is encountered
                 }
 				String[] cardDetails = cardLine.split("\\s+");
@@ -275,8 +280,6 @@ public class Menu {
 			for (Card card : account.getCards()) {
 				writer.println(card.getNumber() + " " + card.getTypeNum());
 			}
-			// Add a blank line to separate accounts
-			writer.println();
 		}
     // Method to save account to file
 	private void saveOverwriteAccountToFile(BankAccount account, String filename) {
