@@ -1,0 +1,50 @@
+ACCOUNT HEADER
+Username: testing123
+Password: testing123
+Balance: 0.0
+Cards:
+ACCOUNT HEADER
+Username: testing123
+Password: testing123
+Balance: 900.0
+Cards:
+1234567890123456  creditACCOUNT HEADER
+Username: t
+Password: t
+Balance: 0.0
+Cards:
+ACCOUNT HEADER
+Username: t
+Password: t
+Balance: 0.0
+Cards:
+ACCOUNT HEADER
+Username: dd
+Password: dd
+Balance: 0.0
+Cards:
+ACCOUNT HEADER
+Username: dd
+Password: dd
+Balance: 0.0
+Cards:
+ACCOUNT HEADER
+Username: ds
+Password: ds
+Balance: 0.0
+Cards:
+ACCOUNT HEADER
+Username: ds
+Password: ds
+Balance: 0.0
+Cards:
+ACCOUNT HEADER
+Username: testing123
+Password: testing123
+Balance: 0.0
+Cards:
+ACCOUNT HEADER
+Username: testing123
+Password: testing123
+Balance: 0.0
+Cards:
