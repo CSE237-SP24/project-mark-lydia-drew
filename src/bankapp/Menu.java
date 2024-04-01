@@ -78,44 +78,56 @@ public class Menu {
 		return loggedInAccount;
 	}
 	
-	private BankAccount findAccount(String username, String password) {
-		try (Scanner scanner = new Scanner(new File("src/accountData/accounts.txt"))) {
-			while (scanner.hasNextLine()) {
-				String line = scanner.nextLine();
-				if (line.startsWith("Username: ") && line.substring(10).equals(username)) {
-					String storedPassword = scanner.nextLine().substring(10);
-					if (storedPassword.equals(password)) {
-						double balance = Double.parseDouble(scanner.nextLine().substring(9));
-						List<Card> cards = new ArrayList<>();
-						scanner.nextLine();
-						while (scanner.hasNextLine()) {
-							String cardLine = scanner.nextLine();
-							if (cardLine.startsWith("ACCOUNT HEADER")) {
-								break; // End of card details for this account
-							}
-							if (cardLine.isEmpty()) {
-								continue; // Skip empty lines
-							}
-							String[] cardDetails = cardLine.split("\\s+");
-							String cardNumber = cardDetails[0];
-							int cardType = Integer.parseInt(cardDetails[1]);
-							cards.add(new Card(cardNumber, cardType));
-						}
-						return new BankAccount(username, password, balance, cards);
-					}
-					else {
-						out.println("Password incorrect. Please try again.");
-						return null; // Password doesn't match
-					}
-				}
-			}
-			out.println("Username not found.");
-			return null;
-		} catch (FileNotFoundException e) {
-			System.err.println("Error: Accounts file not found.");
-		}
-		return null;
-	}
+    private BankAccount findAccount(String username, String password) {
+        try (Scanner scanner = new Scanner(new File("src/accountData/accounts.txt"))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (line.startsWith("Username: ") && line.substring(10).equals(username)) {
+                    return processAccount(scanner, username, password);
+                }
+            }
+            out.println("Username not found.");
+            return null;
+        } catch (FileNotFoundException e) {
+            System.err.println("Error: Accounts file not found.");
+            return null;
+        }
+    }
+
+    private BankAccount processAccount(Scanner scanner, String username, String password) {
+        String storedPassword = scanner.nextLine().substring(10);
+        if (storedPassword.equals(password)) {
+            double balance = Double.parseDouble(scanner.nextLine().substring(9));
+            List<Card> cards = readCards(scanner);
+            return new BankAccount(username, password, balance, cards);
+        } else {
+            out.println("Password incorrect. Please try again.");
+            return null;
+        }
+    }
+
+    private List<Card> readCards(Scanner scanner) {
+        List<Card> cards = new ArrayList<>();
+        scanner.nextLine(); // Skip empty line or "Cards:" line
+        while (scanner.hasNextLine()) {
+            String cardLine = scanner.nextLine();
+            if (cardLine.startsWith("ACCOUNT HEADER")) {
+                break; // End of card details for this account
+            }
+            if (!cardLine.isEmpty()) {
+                cards.add(createCardFromLine(cardLine));
+            }
+        }
+        return cards;
+    }
+
+    private Card createCardFromLine(String cardLine) {
+        String[] cardDetails = cardLine.split("\\s+");
+        String cardNumber = cardDetails[0];
+        int cardType = Integer.parseInt(cardDetails[1]);
+        return new Card(cardNumber, cardType);
+    }
+
 	
 
 	//no tests needed because CardMenu has its own tests
@@ -240,6 +252,7 @@ public class Menu {
 	            System.err.println("Error writing new account information to file: " + e.getMessage());
 	        }
 	    }
+	 
 		private BankAccount readAccountFromLine(Scanner scanner) {
 			String test = scanner.nextLine();
 			String username = null;
@@ -254,18 +267,22 @@ public class Menu {
 			// Read cards
 			List<Card> cards = new ArrayList<>();
 			scanner.nextLine(); // Skip the "Cards:" line
-			while (scanner.hasNextLine()) {
-				String cardLine = scanner.nextLine();
-				if (cardLine.equals("ACCOUNT HEADER") ) {
-                    break; // Stop reading cards if next account header is encountered
-                }
-				String[] cardDetails = cardLine.split("\\s+");
-				String cardNumber = cardDetails[0];
-				int cardType = Integer.parseInt(cardDetails[1]);
-				cards.add(new Card(cardNumber, cardType));
-			}
+			cardAdder(scanner, cards);
 		
 			return new BankAccount(username, password, balance, cards);
+		}
+		
+		private void cardAdder(Scanner scanner, List<Card> cards) {
+		    while (scanner.hasNextLine()) {
+		        String cardLine = scanner.nextLine();
+		        if (cardLine.equals("ACCOUNT HEADER")) {
+		            break; // Stop reading cards if next account header is encountered
+		        }
+		        String[] cardDetails = cardLine.split("\\s+");
+		        String cardNumber = cardDetails[0];
+		        int cardType = Integer.parseInt(cardDetails[1]);
+		        cards.add(new Card(cardNumber, cardType));
+		    }
 		}
 		
 		private void writeAccountToLine(PrintWriter writer, BankAccount account) {
@@ -281,42 +298,50 @@ public class Menu {
 				writer.println(card.getNumber() + " " + card.getTypeNum());
 			}
 		}
-    // Method to save account to file
-	private void saveOverwriteAccountToFile(BankAccount account, String filename) {
-		List<BankAccount> accounts = new ArrayList<>();
+    // Method to save account to file while overwriting
+		private void saveOverwriteAccountToFile(BankAccount account, String filename) {
+		    List<BankAccount> accounts = readAccountsFromFile(filename);
+		    updateOrAddAccount(accounts, account);
 
-		// Read all account data from the file into memory
-		try (Scanner scanner = new Scanner(new File(filename))) {
-			while (scanner.hasNextLine()) {
-				BankAccount storedAccount = readAccountFromLine(scanner);
-				accounts.add(storedAccount);
-			}
-		} catch (FileNotFoundException e) {
-			System.err.println("Error: Accounts file not found.");
-			return;
+		    writeAccountsToFile(accounts, filename);
 		}
-	
-		// Update the specific user's information or add the account if it doesn't exist
-		boolean updated = false;
-		for (int i = 0; i < accounts.size(); i++) {
-			BankAccount storedAccount = accounts.get(i);
-			if (storedAccount.getUsername().equals(account.getUsername())) {
-				accounts.set(i, account);
-				updated = true;
-				break;
-			}
+
+		private List<BankAccount> readAccountsFromFile(String filename) {
+		    List<BankAccount> accounts = new ArrayList<>();
+		    try (Scanner scanner = new Scanner(new File(filename))) {
+		        while (scanner.hasNextLine()) {
+		            BankAccount storedAccount = readAccountFromLine(scanner);
+		            accounts.add(storedAccount);
+		        }
+		    } catch (FileNotFoundException e) {
+		        System.err.println("Error: Accounts file not found.");
+		    }
+		    return accounts;
 		}
-		if (!updated) {
-			accounts.add(account);
+
+		private void updateOrAddAccount(List<BankAccount> accounts, BankAccount newAccount) {
+		    boolean updated = false;
+		    for (int i = 0; i < accounts.size(); i++) {
+		        BankAccount storedAccount = accounts.get(i);
+		        if (storedAccount.getUsername().equals(newAccount.getUsername())) {
+		            accounts.set(i, newAccount);
+		            updated = true;
+		            break;
+		        }
+		    }
+		    if (!updated) {
+		        accounts.add(newAccount);
+		    }
 		}
-	
-		// Write all account data back to the file
-		try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
-			for (BankAccount storedAccount : accounts) {
-				writeAccountToLine(writer, storedAccount);
-			}
-		} catch (IOException e) {
-			System.err.println("Error writing account information to file: " + e.getMessage());
+
+		private void writeAccountsToFile(List<BankAccount> accounts, String filename) {
+		    try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
+		        for (BankAccount storedAccount : accounts) {
+		            writeAccountToLine(writer, storedAccount);
+		        }
+		    } catch (IOException e) {
+		        System.err.println("Error writing account information to file: " + e.getMessage());
+		    }
 		}
-	}
+
 }
