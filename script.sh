@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ ! -d "src/accountData" ]; then
+    # If the directory doesn't exist, create it
+    mkdir -p src/accountData
+fi
+
 # Navigate to the source directory
 cd src
 
