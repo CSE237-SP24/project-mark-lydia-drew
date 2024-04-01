@@ -73,7 +73,7 @@ public class Menu {
 				displayCardMenu(account);
 				return false; // Continue loop
 			case "4":
-				saveAccountToFile(this.account, "src/accountData/accounts.txt");
+				saveOverwriteAccountToFile(this.account, "src/accountData/accounts.txt");
 				out.println("Thank you. Have a nice day!");
 				return true; // Exit loop
 			default:
@@ -172,7 +172,7 @@ public class Menu {
 	        }
 	    }
     // Method to save account to file
-	private void saveAccountToFile(BankAccount account, String filename) {
+	private void saveOverwriteAccountToFile(BankAccount account, String filename) {
         try (RandomAccessFile file = new RandomAccessFile(filename, "rw")) {
             String line;
             long position = 0;
