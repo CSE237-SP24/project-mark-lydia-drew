@@ -161,7 +161,7 @@ public class Menu {
 		}
 	}
 	
-	private boolean menuLoop(String input) {
+	public boolean menuLoop(String input) {
 		switch (input.toLowerCase()) {
 			case "1":
 				System.out.print("How much would you like to deposit: ");
@@ -186,7 +186,7 @@ public class Menu {
 		}
 	}
 	
-	private void handleDeposit(String dAmount) {
+	public void handleDeposit(String dAmount) {
 		try {
 			account.deposit(dAmount);
 			out.println();
@@ -196,7 +196,7 @@ public class Menu {
 		}
 	}
 	
-	private void handleWithdrawal(String wAmount) {
+	public void handleWithdrawal(String wAmount) {
 		try {
 			account.withdraw(wAmount);
 			out.println();
