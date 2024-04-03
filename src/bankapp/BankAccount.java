@@ -78,7 +78,14 @@ public class BankAccount {
 	public List<Card> getCards() {
 		return this.cards;
 	}
-	
+	public Card findCard(String number) {
+		for (Card card : cards) {
+            if (card.getNumber().equals(number)) {
+                return card; // Return the card if its number matches
+            }
+        }
+        return null; // Return null if no matching card is found
+    }
 	public void removeCard(String number) {
 		if (cards.isEmpty()) {
 			throw new IllegalArgumentException();
@@ -107,4 +114,5 @@ public class BankAccount {
 	        	System.err.println("Error writing account information to file: " + e.getMessage());
 	        }
 	 }
+
 }

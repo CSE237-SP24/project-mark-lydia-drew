@@ -18,19 +18,27 @@ public class Menu {
 	public Menu() {
 		this.in = new Scanner(System.in);
         this.out = System.out;
-        checkAccountsFileExists();
+        checkAccountsFileExists("src/accountData/accounts.txt");
+	}
+	
+	public Menu(BankAccount account) {
+		this.in = new Scanner(System.in);
+        this.out = System.out;
+        this.account = account;
 	}
 
-	private void checkAccountsFileExists() {
-        File file = new File("src/accountData/accounts.txt");
+	public boolean checkAccountsFileExists(String filename) {
+        File file = new File(filename);
         if (file.exists()) {
-            handleExistingAccountsFile();
+            handleExistingAccountsFile(filename);
+            return true;
         } else {
-            handleNonExistingAccountsFile();
+            handleNonExistingAccountsFile(filename);
+            return false;
         }
     }
 
-	private void handleExistingAccountsFile() {
+	private void handleExistingAccountsFile(String filename) {
         out.println("Welcome to the BankApp!");
         out.println("Accounts file detected.");
         out.println("Would you like to create a new account or log in?");
@@ -38,15 +46,15 @@ public class Menu {
         String input = in.nextLine();
         if ("1".equals(input)) {
             this.account = createAccount();
-            saveNewAccountToFile(this.account, "src/accountData/accounts.txt");
+            saveNewAccountToFile(this.account, filename);
         } else if ("2".equals(input)) {
-            this.account = login();
+            this.account = login(filename);
         } else {
             out.println("Invalid input. Please try again.");
         }
     }
 
-    private void handleNonExistingAccountsFile() {
+    private void handleNonExistingAccountsFile(String filename) {
         out.println("Welcome to the BankApp!");
         out.println("No accounts file detected.");
         out.println("Would you like to create a new account?");
@@ -54,7 +62,7 @@ public class Menu {
         String input = in.nextLine();
         if ("1".equals(input)) {
             this.account = createAccount();
-            saveNewAccountToFile(this.account, "src/accountData/accounts.txt");
+            saveNewAccountToFile(this.account, filename);
         } else {
             out.println("Invalid input. Exiting program.");
             System.exit(0);
@@ -62,24 +70,27 @@ public class Menu {
     }
 
 	// Method to handle the login process
-    private BankAccount login() {
+    private BankAccount login(String filename) {
 		out.println("Login");
 		out.println("Enter your username:");
 		String username = in.nextLine();
+		if (username.equalsIgnoreCase("quit")) {
+	        return null; 
+	    }
 		out.println("Enter your password:");
 		String password = in.nextLine();
-		BankAccount loggedInAccount = findAccount(username, password);
+		BankAccount loggedInAccount = findAccount(username, password, filename);
 		if (loggedInAccount != null) {
 			out.println("Login successful. Welcome, " + username + "!");
 		} else {
 			out.println("Username or password is incorrect. Please try again.");
-			loggedInAccount = login(); // Retry login recursively
+			loggedInAccount = login(filename); // Retry login recursively
 		}
 		return loggedInAccount;
 	}
 	
-    private BankAccount findAccount(String username, String password) {
-        try (Scanner scanner = new Scanner(new File("src/accountData/accounts.txt"))) {
+    public BankAccount findAccount(String username, String password, String filename) {
+        try (Scanner scanner = new Scanner(new File(filename))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if (line.startsWith("Username: ") && line.substring(10).equals(username)) {
@@ -186,7 +197,7 @@ public class Menu {
 		}
 	}
 	
-	private void handleDeposit(String dAmount) {
+	public void handleDeposit(String dAmount) {
 		try {
 			account.deposit(dAmount);
 			out.println();
@@ -196,7 +207,7 @@ public class Menu {
 		}
 	}
 	
-	private void handleWithdrawal(String wAmount) {
+	public void handleWithdrawal(String wAmount) {
 		try {
 			account.withdraw(wAmount);
 			out.println();
@@ -235,7 +246,7 @@ public class Menu {
 		return account;
 	}
 	
-	 private void saveNewAccountToFile(BankAccount account, String filename) {
+	 public void saveNewAccountToFile(BankAccount account, String filename) {
 	        try (PrintWriter writer = new PrintWriter(new FileWriter(filename, true))) {
 	            // Write account information to the file
 	            writer.println("ACCOUNT HEADER");
@@ -246,7 +257,6 @@ public class Menu {
 	            for (Card card : account.getCards()) {
 	                writer.print(card.getNumber() + "  " + card.getTypeNum());
 	            }
-	            writer.println(); // Add a new line to separate accounts
 	        } catch (IOException e) {
 	            // Handle the exception
 	            System.err.println("Error writing new account information to file: " + e.getMessage());
@@ -299,10 +309,9 @@ public class Menu {
 			}
 		}
     // Method to save account to file while overwriting
-		private void saveOverwriteAccountToFile(BankAccount account, String filename) {
+		public void saveOverwriteAccountToFile(BankAccount account, String filename) {
 		    List<BankAccount> accounts = readAccountsFromFile(filename);
 		    updateOrAddAccount(accounts, account);
-
 		    writeAccountsToFile(accounts, filename);
 		}
 
