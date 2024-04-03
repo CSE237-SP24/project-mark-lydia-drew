@@ -1,17 +1,27 @@
 package bankapp;
 
 import java.util.*;
+import java.io.*;
 
 public class BankAccount {
 	private double balance;
+	private String password;
 	private String username;
-	private ArrayList<Card> cards;
+	private List<Card> cards;
 	
 	//Constructors - not tested
-	public BankAccount(String userToAdd) {
+	public BankAccount(String userToAdd, String passwd) {
 		this.username = userToAdd;
+		this.password = passwd;
 		this.balance = 0;
 		this.cards = new ArrayList<Card>();
+	}
+	
+	public BankAccount(String userToAdd, String passwd, double balanc, List<Card> thisCards) {
+		this.username = userToAdd;
+		this.password = passwd;
+		this.balance = balanc;
+		this.cards = thisCards;
 	}
 	
 	//public method doing some work - lots of tests
@@ -58,11 +68,14 @@ public class BankAccount {
 	public String getUsername() {
 		return this.username;
 	}
+	public String getPassword() {
+		return this.password;
+	}
 	public void addCard(Card newCard) {
 		cards.add(newCard);
 	}
 	
-	public ArrayList<Card> getCards() {
+	public List<Card> getCards() {
 		return this.cards;
 	}
 	
@@ -79,4 +92,19 @@ public class BankAccount {
 		}
 		cards.remove(i);
 	}
+	 public void saveAccountToFile(String filename) {
+	        try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
+	        	writer.println("ACCOUNT HEADER");
+	            writer.println("Username: " + username);
+	            writer.println("Password: " + password);
+	            writer.println("Balance: " + balance);
+	            writer.println("Cards:");
+	            for (Card card : cards) {
+	                writer.println(card.getNumber() + "  "+ card.getTypeNum());
+	            }
+	        } catch (IOException e) {
+	        	// Handle the exception, for example, by printing an error message
+	        	System.err.println("Error writing account information to file: " + e.getMessage());
+	        }
+	 }
 }

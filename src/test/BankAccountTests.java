@@ -13,7 +13,7 @@ class BankAccountTests {
 	void testSimpleDeposit() {
 		//1. Setup Objects
 		
-		BankAccount testAccount = new BankAccount("testUser");
+		BankAccount testAccount = new BankAccount("testuser", "passwd");
 		
 		//2. Call the method being tested
 		testAccount.deposit("25");
@@ -25,7 +25,7 @@ class BankAccountTests {
 	@Test
 	void testNegativeDeposit() {
 		//1. Setup Objects	
-		BankAccount testAccount = new BankAccount("testUser");
+		BankAccount testAccount = new BankAccount("testuser", "passwd");
 		
 		//2. Call the method being tested
 		try {
@@ -39,7 +39,7 @@ class BankAccountTests {
 	@Test
 	void testNumericDeposit() {
 		//1. Setup Objects	
-		BankAccount testAccount = new BankAccount("testUser");
+		BankAccount testAccount = new BankAccount("testuser", "passwd");
 		
 		//2. Call the method being tested
 		try {
@@ -54,7 +54,7 @@ class BankAccountTests {
 	void testMultipleDeposits() {
 		//1. Setup Objects
 		
-		BankAccount testAccount = new BankAccount("testuser");
+		BankAccount testAccount = new BankAccount("testuser", "passwd");
 		
 		//2. Call the method being tested
 		testAccount.deposit("25");
@@ -68,7 +68,7 @@ class BankAccountTests {
 	void testMultipleDepositsWithError() {
 		//1. Setup Objects
 		
-		BankAccount testAccount = new BankAccount("testuser");
+		BankAccount testAccount = new BankAccount("testuser", "passwd");
 		
 		//2. Call the method being tested
 		testAccount.deposit("25");
@@ -85,7 +85,7 @@ class BankAccountTests {
 	void testSimpleWithdraw() {
 		//1. Setup Objects
 		
-		BankAccount testAccount = new BankAccount("testuser");
+		BankAccount testAccount = new BankAccount("testuser", "passwd");
 		testAccount.deposit("25");
 		
 		//2. Call the method being tested
@@ -99,7 +99,7 @@ class BankAccountTests {
 	void testMultipleWithdraw() {
 		//1. Setup Objects
 		
-		BankAccount testAccount = new BankAccount("testuser");
+		BankAccount testAccount = new BankAccount("testuser", "passwd");
 		testAccount.deposit("25");
 		
 		//2. Call the method being tested
@@ -113,7 +113,7 @@ class BankAccountTests {
 	@Test
 	void testNegativeWithdraw() {
 		//1. Setup Objects	
-		BankAccount testAccount = new BankAccount("testuser");
+		BankAccount testAccount = new BankAccount("testuser", "passwd");
 		testAccount.deposit("25");
 		
 		//2. Call the method being tested
@@ -129,7 +129,7 @@ class BankAccountTests {
 	void testGreaterThanBalanceWithdraw() {
 		//1. Setup Objects
 		
-		BankAccount testAccount = new BankAccount("testuser");
+		BankAccount testAccount = new BankAccount("testuser", "passwd");
 		testAccount.deposit("25");
 		
 		try {
@@ -144,7 +144,7 @@ class BankAccountTests {
 	void testMultipleWithdrawWithError() {
 		//1. Setup Objects
 		
-		BankAccount testAccount = new BankAccount("testuser");
+		BankAccount testAccount = new BankAccount("testuser", "passwd");
 		testAccount.deposit("25");
 		
 		//2. Call the method being tested
@@ -161,7 +161,7 @@ class BankAccountTests {
 	}
 	@Test
 	void testAddCard() {
-		BankAccount testAccount = new BankAccount("testuser");
+		BankAccount testAccount = new BankAccount("testuser", "passwd");
 		testAccount.addCard(new Card("1234567890123456", 1));
 		int numberOfCards = testAccount.getCards().size();
 		assertEquals(1, numberOfCards);
@@ -169,7 +169,7 @@ class BankAccountTests {
 
 	@Test
 	void testAddMultipleCards() {
-		BankAccount testAccount = new BankAccount("testuser");
+		BankAccount testAccount = new BankAccount("testuser", "passwd");
 		testAccount.addCard(new Card("1234567890123456", 1));
 		testAccount.addCard(new Card("1234567890123451", 1));
 		testAccount.addCard(new Card("1234567890123452", 0));
@@ -179,7 +179,7 @@ class BankAccountTests {
 
 	@Test
 	void testRemoveCard() {
-		BankAccount testAccount = new BankAccount("testuser");
+		BankAccount testAccount = new BankAccount("testuser", "passwd");
 		Card testCard = new Card("1234567890123452", 0);
 		testAccount.addCard(testCard);
 		testAccount.removeCard(testCard.getNumber());
@@ -189,7 +189,7 @@ class BankAccountTests {
 
 	@Test
 	void testRemoveCardInvalid() {
-		BankAccount testAccount = new BankAccount("testuser");
+		BankAccount testAccount = new BankAccount("testuser", "passwd");
 		Card fakeCard = new Card("2222222222222222", 0);
 		Card trueCard = new Card("1234567890123452", 0);
 		testAccount.addCard(trueCard);
@@ -204,7 +204,7 @@ class BankAccountTests {
 	}
 	@Test
 	void testRemoveCardWhenNoPresent() {
-		BankAccount testAccount = new BankAccount("testuser");
+		BankAccount testAccount = new BankAccount("testuser", "passwd");
 		Card fakeCard = new Card("2222222222222222", 0);
 		try {
 			testAccount.removeCard(fakeCard.getNumber());
