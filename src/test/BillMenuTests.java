@@ -22,7 +22,7 @@ public class BillMenuTests {
 	
 	@Test
 	public void paySimpleBill() {
-		BankAccount account = new BankAccount("testuser");
+		BankAccount account = new BankAccount("testuser", "1234");
 		account.deposit("100");
 		BillMenu menu = new BillMenu(account);
 		Bill bill = new Bill(50, "bank");
@@ -33,7 +33,7 @@ public class BillMenuTests {
 	
 	@Test
 	public void payMultipleBills() {
-		BankAccount account = new BankAccount("testuser");
+		BankAccount account = new BankAccount("testuser", "1234");
 		account.deposit("300");
 		BillMenu menu = new BillMenu(account);
 		Bill billOne = new Bill(50, "bank");
@@ -47,7 +47,7 @@ public class BillMenuTests {
 	
 	@Test 
 	public void payMultipleBillsInsufficient() {
-		BankAccount account = new BankAccount("testuser");
+		BankAccount account = new BankAccount("testuser", "1234");
 		account.deposit("300");
 		BillMenu menu = new BillMenu(account);
 		Bill billOne = new Bill(50, "bank");
@@ -61,7 +61,7 @@ public class BillMenuTests {
 	
 	@Test
 	public void payInsufficientFunds() {
-		BankAccount account = new BankAccount("testuser");
+		BankAccount account = new BankAccount("testuser", "1234");
 		account.deposit("100");
 		BillMenu menu = new BillMenu(account);
 		Bill bill = new Bill(200, "bank");
@@ -71,7 +71,7 @@ public class BillMenuTests {
 	
 	@Test
 	public void payNegativeBill() {
-		BankAccount account = new BankAccount("testuser");
+		BankAccount account = new BankAccount("testuser", "1234");
 		account.deposit("100");
 		BillMenu menu = new BillMenu(account);
 		Bill bill = new Bill(-200, "bank");
