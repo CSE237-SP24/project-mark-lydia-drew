@@ -27,6 +27,7 @@ public class Menu {
         this.account = account;
 	}
 
+
 	public boolean checkAccountsFileExists(String filename) {
         File file = new File(filename);
         if (file.exists()) {
@@ -148,6 +149,15 @@ public class Menu {
 		// Call a method in CardMenu to display the menu
 		cardMenu.cardMenuDisplay();
 	}
+	
+	public void displayBillMenu(BankAccount account) {
+		BillMenu billMenu = new BillMenu(account);
+		billMenu.billMenuDisplay();
+		if (billMenu.switchMenu()) {
+			infiniteMenu();
+		}
+	}
+	
 	// Prompts the user for a username and creates a new BankAccount
 	private BankAccount createAccount() {
 		out.println("Enter your username:");
@@ -159,7 +169,7 @@ public class Menu {
 	
 	//Code that just displays stuff - no tests needed
 	public void displayingOptions() {
-		System.out.print("To deposit money enter \"1\". To withdraw money enter \"2\".\n" +"To go to card menu enter \"3\". To quit enter \"4\": ");
+		System.out.print("To deposit money enter \"1\". To withdraw money enter \"2\".\n" +"To go to card menu enter \"3\". To pay a bill enter \"4\".\n" + "To quit enter \"5\": ");
 	}
 	
 	//Menu method to loop until quit
@@ -172,7 +182,7 @@ public class Menu {
 		}
 	}
 	
-	private boolean menuLoop(String input) {
+	public boolean menuLoop(String input) {
 		switch (input.toLowerCase()) {
 			case "1":
 				System.out.print("How much would you like to deposit: ");
@@ -188,6 +198,9 @@ public class Menu {
 				displayCardMenu(account);
 				return false; // Continue loop
 			case "4":
+				displayBillMenu(account);
+				return false; // Continue loop
+			case "5":
 				saveOverwriteAccountToFile(this.account, "src/accountData/accounts.txt");
 				out.println("Thank you. Have a nice day!");
 				return true; // Exit loop

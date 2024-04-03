@@ -3,7 +3,6 @@ package test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 import bankapp.Menu;
 import bankapp.BankAccount;
@@ -18,21 +17,31 @@ public class MenuTests {
     	account = new BankAccount("test", "passwd");
     	menu = new Menu(account);
     }
+
     
     @Test
-    void handleSimpleDeposit() {
+    public void handleSimpleDeposit() {
+		BankAccount account = new BankAccount("testuser", "passwd");
+    	Menu menu = new Menu(account);
+
     	menu.handleDeposit("5");
     	assertEquals(account.getBalance(),5,.01);
     }
     @Test
-    void handleMultipleDeposits() {
+    public void handleMultipleDeposits() {
+		BankAccount account = new BankAccount("testuser", "passwd");
+    	Menu menu = new Menu(account);
+		
 		menu.handleDeposit("25");
 		menu.handleDeposit("15.5");
 		
 		assertEquals(40.5, account.getBalance(), 0.01);	
 	}
     @Test
-	void handleMultipleDepositsWithError() {
+	public void handleMultipleDepositsWithError() {
+		BankAccount account = new BankAccount("testuser", "passwd");
+    	Menu menu = new Menu(account);
+		
 		menu.handleDeposit("25");
 		menu.handleDeposit("yjtjdyjydtj");
 		menu.handleDeposit("15.5");
@@ -40,7 +49,10 @@ public class MenuTests {
 		assertEquals(40.5, account.getBalance(), 0.01);	
 	}
     @Test
-	void handleSimpleWithdrawal() {
+	public void handleSimpleWithdrawal() {
+		BankAccount account = new BankAccount("testuser", "passwd");
+    	Menu menu = new Menu(account);
+		
 		account.deposit("25");
 		menu.handleWithdrawal("10");
 		
@@ -48,7 +60,10 @@ public class MenuTests {
 	}
 
 	@Test
-	void handleMultipleWithdrawals() {
+	public void handleMultipleWithdrawals() {
+		BankAccount account = new BankAccount("testuser", "passwd");
+    	Menu menu = new Menu(account);
+		
 		account.deposit("25");
 		
 		menu.handleWithdrawal("10");
@@ -58,7 +73,10 @@ public class MenuTests {
 	}
 
 	@Test
-	void handleGreaterThanBalanceWithdrawal() {
+	public void handleGreaterThanBalanceWithdrawal() {
+		BankAccount account = new BankAccount("testuser", "passwd");
+    	Menu menu = new Menu(account);
+		
 		account.deposit("25");
 		
 		menu.handleWithdrawal("100");
@@ -68,7 +86,10 @@ public class MenuTests {
 
 
 	@Test
-	void handleMultipleWithdrawWithError() {
+	public void handleMultipleWithdrawWithError() {
+		BankAccount account = new BankAccount("testuser", "passwd");
+    	Menu menu = new Menu(account);
+		
 		account.deposit("25");
 		
 		menu.handleWithdrawal("10");
