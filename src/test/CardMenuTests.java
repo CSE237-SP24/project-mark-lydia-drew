@@ -12,20 +12,20 @@ public class CardMenuTests {
 	
 	@Test
 	void testConstructorWithUsername() {
-		CardMenu menu = new CardMenu(new BankAccount("testUser"));
+		CardMenu menu = new CardMenu(new BankAccount("testuser", "passwd"));
 		assertNotNull(menu);
 	}
 
     @Test
 	void testAddCard() {
-		CardMenu m = new CardMenu(new BankAccount("testuser"));
+		CardMenu m = new CardMenu(new BankAccount("testuser", "passwd"));
 		m.addCard();
 		assertEquals(1, m.numberOfCards());
 	}
     
     @Test
 	void testAddMultipleCards() {
-		CardMenu m = new CardMenu(new BankAccount("testuser"));
+		CardMenu m = new CardMenu(new BankAccount("testuser", "passwd"));
 		m.addCard();
 		m.addCard();
 		m.addCard();

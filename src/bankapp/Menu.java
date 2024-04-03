@@ -18,11 +18,17 @@ public class Menu {
 	public Menu() {
 		this.in = new Scanner(System.in);
         this.out = System.out;
-        checkAccountsFileExists();
+        checkAccountsFileExists("src/accountData/accounts.txt");
+	}
+	
+	public Menu(BankAccount account) {
+		this.in = new Scanner(System.in);
+        this.out = System.out;
+        this.account = account;
 	}
 
-	private void checkAccountsFileExists() {
-        File file = new File("src/accountData/accounts.txt");
+	public void checkAccountsFileExists(String filename) {
+        File file = new File(filename);
         if (file.exists()) {
             handleExistingAccountsFile();
         } else {

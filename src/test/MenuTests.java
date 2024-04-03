@@ -11,7 +11,7 @@ public class MenuTests {
     
     @Test
     public void handleSimpleDeposit() {
-		BankAccount account = new BankAccount("test");
+		BankAccount account = new BankAccount("testuser", "passwd");
     	Menu menu = new Menu(account);
 
     	menu.handleDeposit("5");
@@ -19,7 +19,7 @@ public class MenuTests {
     }
     @Test
     public void handleMultipleDeposits() {
-		BankAccount account = new BankAccount("test");
+		BankAccount account = new BankAccount("testuser", "passwd");
     	Menu menu = new Menu(account);
 		
 		menu.handleDeposit("25");
@@ -29,7 +29,7 @@ public class MenuTests {
 	}
     @Test
 	public void handleMultipleDepositsWithError() {
-		BankAccount account = new BankAccount("test");
+		BankAccount account = new BankAccount("testuser", "passwd");
     	Menu menu = new Menu(account);
 		
 		menu.handleDeposit("25");
@@ -40,7 +40,7 @@ public class MenuTests {
 	}
     @Test
 	public void handleSimpleWithdrawal() {
-		BankAccount account = new BankAccount("test");
+		BankAccount account = new BankAccount("testuser", "passwd");
     	Menu menu = new Menu(account);
 		
 		account.deposit("25");
@@ -51,7 +51,7 @@ public class MenuTests {
 
 	@Test
 	public void handleMultipleWithdrawals() {
-		BankAccount account = new BankAccount("test");
+		BankAccount account = new BankAccount("testuser", "passwd");
     	Menu menu = new Menu(account);
 		
 		account.deposit("25");
@@ -64,7 +64,7 @@ public class MenuTests {
 
 	@Test
 	public void handleGreaterThanBalanceWithdrawal() {
-		BankAccount account = new BankAccount("test");
+		BankAccount account = new BankAccount("testuser", "passwd");
     	Menu menu = new Menu(account);
 		
 		account.deposit("25");
@@ -77,7 +77,7 @@ public class MenuTests {
 
 	@Test
 	public void handleMultipleWithdrawWithError() {
-		BankAccount account = new BankAccount("test");
+		BankAccount account = new BankAccount("testuser", "passwd");
     	Menu menu = new Menu(account);
 		
 		account.deposit("25");
