@@ -6,27 +6,28 @@ public class Loan {
     private final double LOAN_CALCULATION_YEARS=5;
     private final double LOAN_CALCULATION_FRACTION=0.5;
     private final double COMPOUNDING_TIME_PERIOD=12;
-    private double intialAmount;
+    private final int intialAmount;
+    private final double interestRate;
     private double amountUnpaid;
-    private double interestRate;
-    private int termInTimePeriod;
     private BankAccount loanHolder;
     private Scanner in;
 
-    public Loan(double intialAmount,double interestRate){
+    public Loan(int intialAmount,double interestRate){
         this.intialAmount=intialAmount;
         amountUnpaid=intialAmount;
         this.interestRate=interestRate;
-        this.termInTimePeriod=0;
         this.in = new Scanner(System.in);
         this.loanHolder=null;
     }
+    public void incrementTimePeriod(){
+        amountUnpaid=amountUnpaid*Math.pow((1+interestRate/COMPOUNDING_TIME_PERIOD),COMPOUNDING_TIME_PERIOD);
 
+    }
     public boolean isApproved(){
         return loanHolder!=null;
     }
     public double getApprovalThreshold(){
-        return intialAmount*Math.pow((1+(interestRate)/COMPOUNDING_TIME_PERIOD),LOAN_CALCULATION_YEARS*COMPOUNDING_TIME_PERIOD)*LOAN_CALCULATION_FRACTION;
+        return intialAmount*Math.pow((1+interestRate/COMPOUNDING_TIME_PERIOD),LOAN_CALCULATION_YEARS*COMPOUNDING_TIME_PERIOD)*LOAN_CALCULATION_FRACTION;
     }
     public boolean authorizeLoan(double income,BankAccount applicant){
         return applicant.getBalance()+income*LOAN_CALCULATION_YEARS>getApprovalThreshold(); 
@@ -41,7 +42,21 @@ public class Loan {
             System.out.println("Loan Application Rejected");
         }
     }
-
+    public boolean tryLoanPayment(double amount){
+        if(amount<0) throw new IllegalArgumentException("Invalid amount! Amount should be a positive number.");
+        if(!isApproved()){
+            System.out.println("Loan has not been approved");
+            return false;
+        }
+        if(loanHolder.getBalance()<amount) {
+            System.out.println("You do not have enough money to make this payment");
+            return false;
+        }
+        if(amount > amountUnpaid) throw new IllegalArgumentException("Invalid amount! Amount should be less that or equal to amount unpaid: "+amountUnpaid);
+        loanHolder.withdraw(String.valueOf(amount));
+        amountUnpaid-=amount;
+        return true;
+    }
     public double getValidUserInput() {
 		double amount;
 		while (true) {
@@ -63,5 +78,10 @@ public class Loan {
 		}
 		return amount;
 	}
+    public double getCOMPOUNDING_TIME_PERIOD(){return COMPOUNDING_TIME_PERIOD;}
+    public int getIntialAmount() {return intialAmount;}
+    public double getInterestRate(){return interestRate; };
+    public double getAmountUnpaid(){return amountUnpaid;}
+    public BankAccount getLoanHolder(){return loanHolder;}
     
 }

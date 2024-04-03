@@ -7,6 +7,7 @@ public class BankAccount {
 	private String username;
 	private ArrayList<Card> cards;
 	
+	
 	//Constructors - not tested
 	public BankAccount(String userToAdd) {
 		this.username = userToAdd;
