@@ -35,7 +35,8 @@ public class Bill {
 	}
 	
 	public void display() {
-		System.out.println("You have paid $" + this.amount + " to " + this.reciever);
+		System.out.println("You have paid $" + this.amount + " to " + this.reciever + ".");
+		System.out.println();
 	}
 	
 	

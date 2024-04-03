@@ -26,7 +26,7 @@ public class BillMenu {
 	public void billMenuDisplay(){
 		Bill bill = new Bill(getValidAmount(), getReciever());
 		payBill(bill);
-		switchMenu();
+//		switchMenu();
 	}
 	
 	public double getValidAmount() {
@@ -51,13 +51,15 @@ public class BillMenu {
 	
 	public void payBill(Bill bill) {
 		double currentBalance = account.getBalance();
-		double newBalance = currentBalance - bill.getAmount();
+		double billAmount = bill.getAmount();
+		double newBalance = currentBalance - billAmount;
 		if (newBalance < 0) {
 			System.out.println("Your current balance is insufficient to pay your bill.\nConsider depositing more money into your account.");
 			System.out.println();
 		} else {
-			account.withdraw(String.valueOf(bill.getAmount()));
+			account.withdraw(String.valueOf(billAmount));
 			bill.display();
+			System.out.println("Your balance is now: $" + newBalance + ".");
 		}
 	}
 	
