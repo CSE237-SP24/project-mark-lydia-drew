@@ -15,7 +15,7 @@ public class MenuTests {
 
     @BeforeEach
     void setUp() {
-    	account = new BankAccount("test");
+    	account = new BankAccount("test", "passwd");
     	menu = new Menu(account);
     }
     
