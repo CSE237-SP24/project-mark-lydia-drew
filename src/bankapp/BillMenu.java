@@ -8,11 +8,6 @@ public class BillMenu {
 	private Scanner in;
 	private BankAccount account;
 	
-	public static void main(String args[]) {
-		BillMenu menu = new BillMenu(new BankAccount("test"));
-		menu.billMenuDisplay();
-	}
-	
 //	public BillMenu() {
 //		this.in = new Scanner(System.in);
 //		this.account = null;
