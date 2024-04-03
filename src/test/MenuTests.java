@@ -8,6 +8,16 @@ import bankapp.Menu;
 import bankapp.BankAccount;
 
 public class MenuTests {
+
+    private Menu menu;
+    private BankAccount account;
+
+    @BeforeEach
+    void setUp() {
+    	account = new BankAccount("test", "passwd");
+    	menu = new Menu(account);
+    }
+
     
     @Test
     public void handleSimpleDeposit() {
