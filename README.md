@@ -1,27 +1,27 @@
 # base-project
 
-ITERATION 1:
+ITERATION 1: See previous commit.
+
+ITERATION 2: 
 
   User stories completed:
   
-   - As a user, I want to be able to create a bank account.
+   - As a user, I want to be able to have a password secure my account.
     
-   - As a user, I want to be able to deposit and withdraw money in my account.
+   - As a user, I want to have my information saved across sessions.
     
-   - As a user, I want to be able to add a credit/debit card to my account.
+   - As a user, I want to be able to submit an application for a loan.
     
-   - As a user, I want to be able to see the cards linked to my account.
-    
-   - As a user, I want to be able to remove a card linked to my account.
+   - As a user, I want to be able to pay my bills through my account.
 
 
   User stories for next iteration:
-  
-   - As a user, I want to have my information saved between sessions.
-    
-   - As a user, I want to have a password to protect my user information.
     
    - As a user, I want to have multiple accounts user a single user.
+
+   - As a user, I want to be able to check my credit score.
+
+   - As a user, I want to view my account's activity history.
     
   *Other stories may come up as we work on it, but this is what we have so far.
 
