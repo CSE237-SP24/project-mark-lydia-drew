@@ -172,7 +172,9 @@ public class Menu {
 			//Display options and send to helpers
 			displayingOptions();
 			String input = in.nextLine();
-			if(menuLoop(input)) break;
+			if(menuLoop(input)) {
+				break;
+			}
 		}
 	}
 	
