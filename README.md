@@ -27,4 +27,6 @@ ITERATION 2:
 
 
   Commands to run:
-    Simply run the script.sh file. Currently requires you to start from scratch every time.
+    Simply run the script.sh file. 
+
+  If the account saving does not work, you may need to manually create the accountData and accounts.txt objects. Place them in src, with accountData as the folder and accounts.txt as the file within the folder.
