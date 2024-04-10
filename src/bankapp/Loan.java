@@ -6,13 +6,13 @@ public class Loan {
     private final double LOAN_CALCULATION_YEARS=5;
     private final double LOAN_CALCULATION_FRACTION=0.5;
     private final double COMPOUNDING_TIME_PERIOD=12;
-    private final int intialAmount;
+    private final double intialAmount;
     private final double interestRate;
     private double amountUnpaid;
     private BankAccount loanHolder;
     private Scanner in;
 
-    public Loan(int intialAmount,double interestRate){
+    public Loan(double intialAmount,double interestRate){
         this.intialAmount=intialAmount;
         amountUnpaid=intialAmount;
         this.interestRate=interestRate;
@@ -32,10 +32,18 @@ public class Loan {
     public boolean authorizeLoan(double income,BankAccount applicant){
         return applicant.getBalance()+income*LOAN_CALCULATION_YEARS>getApprovalThreshold(); 
     }
-    public void grantLoan(BankAccount applicant){
+    public void grantLoanWithIncome(BankAccount applicant){
         System.out.println("Enter your income: ");
         double income = getValidUserInput();
         if(authorizeLoan(income, applicant)){
+            this.loanHolder=applicant;
+            System.out.println("Congratulations, your loan has been approved");
+        }else{
+            System.out.println("Loan Application Rejected");
+        }
+    }
+    public void grantLoanWithoutIncome(BankAccount applicant){
+        if(authorizeLoan(0, applicant)){
             this.loanHolder=applicant;
             System.out.println("Congratulations, your loan has been approved");
         }else{
@@ -79,7 +87,7 @@ public class Loan {
 		return amount;
 	}
     public double getCOMPOUNDING_TIME_PERIOD(){return COMPOUNDING_TIME_PERIOD;}
-    public int getIntialAmount() {return intialAmount;}
+    public double getIntialAmount() {return intialAmount;}
     public double getInterestRate(){return interestRate; };
     public double getAmountUnpaid(){return amountUnpaid;}
     public BankAccount getLoanHolder(){return loanHolder;}
