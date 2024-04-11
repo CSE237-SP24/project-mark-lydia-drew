@@ -8,10 +8,6 @@ public class BillMenu {
 	private Scanner in;
 	private BankAccount account;
 	
-//	public BillMenu() {
-//		this.in = new Scanner(System.in);
-//		this.account = null;
-//	}
 	
 	public BillMenu(BankAccount account) {
 		this.in = new Scanner(System.in);
@@ -21,7 +17,6 @@ public class BillMenu {
 	public void billMenuDisplay(){
 		Bill bill = new Bill(getValidAmount(), getReciever());
 		payBill(bill);
-//		switchMenu();
 	}
 	
 	public double getValidAmount() {
