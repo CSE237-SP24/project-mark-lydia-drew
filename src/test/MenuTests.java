@@ -11,16 +11,19 @@ public class MenuTests {
     
     @Test
     public void handleSimpleDeposit() {
+    	
 		BankAccount account = new BankAccount("testuser", "passwd");
-    	Menu menu = new Menu(account);
+		String filename = "src/accountData/accounts_test.txt";
+        Menu menu = new Menu(account, filename);
 
     	menu.handleDeposit("5");
     	assertEquals(account.getBalance(),5,.01);
     }
     @Test
     public void handleMultipleDeposits() {
-		BankAccount account = new BankAccount("testuser", "passwd");
-    	Menu menu = new Menu(account);
+    	BankAccount account = new BankAccount("testuser", "passwd");
+		String filename = "src/accountData/accounts_test.txt";
+        Menu menu = new Menu(account, filename);
 		
 		menu.handleDeposit("25");
 		menu.handleDeposit("15.5");
@@ -29,8 +32,9 @@ public class MenuTests {
 	}
     @Test
 	public void handleMultipleDepositsWithError() {
-		BankAccount account = new BankAccount("testuser", "passwd");
-    	Menu menu = new Menu(account);
+    	BankAccount account = new BankAccount("testuser", "passwd");
+		String filename = "src/accountData/accounts_test.txt";
+        Menu menu = new Menu(account, filename);
 		
 		menu.handleDeposit("25");
 		menu.handleDeposit("yjtjdyjydtj");
@@ -40,8 +44,9 @@ public class MenuTests {
 	}
     @Test
 	public void handleSimpleWithdrawal() {
-		BankAccount account = new BankAccount("testuser", "passwd");
-    	Menu menu = new Menu(account);
+    	BankAccount account = new BankAccount("testuser", "passwd");
+		String filename = "src/accountData/accounts_test.txt";
+        Menu menu = new Menu(account, filename);
 		
 		account.deposit("25");
 		menu.handleWithdrawal("10");
@@ -52,7 +57,8 @@ public class MenuTests {
 	@Test
 	public void handleMultipleWithdrawals() {
 		BankAccount account = new BankAccount("testuser", "passwd");
-    	Menu menu = new Menu(account);
+		String filename = "src/accountData/accounts_test.txt";
+        Menu menu = new Menu(account, filename);
 		
 		account.deposit("25");
 		
@@ -65,7 +71,8 @@ public class MenuTests {
 	@Test
 	public void handleGreaterThanBalanceWithdrawal() {
 		BankAccount account = new BankAccount("testuser", "passwd");
-    	Menu menu = new Menu(account);
+		String filename = "src/accountData/accounts_test.txt";
+        Menu menu = new Menu(account, filename);
 		
 		account.deposit("25");
 		
@@ -78,7 +85,8 @@ public class MenuTests {
 	@Test
 	public void handleMultipleWithdrawWithError() {
 		BankAccount account = new BankAccount("testuser", "passwd");
-    	Menu menu = new Menu(account);
+		String filename = "src/accountData/accounts_test.txt";
+        Menu menu = new Menu(account, filename);
 		
 		account.deposit("25");
 		
