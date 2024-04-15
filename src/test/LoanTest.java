@@ -32,14 +32,14 @@ public class LoanTest {
        @Test
        void testPassAuthorization(){
             Loan testLoan = new Loan(1000,.05);
-            BankAccount testAccount = new BankAccount("testUser","testPass",1000,null);
+            BankAccount testAccount = new BankAccount("testUser","testPass",1000,null,null);
             boolean authorized = testLoan.authorizeLoan(0, testAccount);
             assertTrue(authorized);
        }
        @Test
        void testGrantLoan(){
             Loan testLoan = new Loan(1000,.05);
-            BankAccount testAccount = new BankAccount("testUser","testPass",1000,null);
+            BankAccount testAccount = new BankAccount("testUser","testPass",1000,null,null);
             testLoan.grantLoanWithoutIncome(testAccount);
             assertTrue(testLoan.isApproved());
             assertEquals(testLoan.getLoanHolder(), testAccount);
@@ -71,7 +71,7 @@ public class LoanTest {
        @Test
        void testInsufficientFundsLoanPayment(){
             Loan testLoan = new Loan(1000,.05);
-            BankAccount testAccount = new BankAccount("testUser","testPass",998,null);
+            BankAccount testAccount = new BankAccount("testUser","testPass",998,null,null);
             testLoan.grantLoanWithoutIncome(testAccount);
             assertEquals(testLoan.getLoanHolder(), testAccount);
             boolean madePayment=testLoan.tryLoanPayment(999);
@@ -80,7 +80,7 @@ public class LoanTest {
        @Test
        void testGreaterThanOutstandingAmountLoanPayment(){
             Loan testLoan = new Loan(1000,.05);
-            BankAccount testAccount = new BankAccount("testUser","testPass",2000,null);
+            BankAccount testAccount = new BankAccount("testUser","testPass",2000,null,null);
             testLoan.grantLoanWithoutIncome(testAccount);
             assertEquals(testLoan.getLoanHolder(), testAccount);
             try{
@@ -93,7 +93,7 @@ public class LoanTest {
        @Test
        void testSuccessfulLoanPayment(){
             Loan testLoan = new Loan(1000,.05);
-            BankAccount testAccount = new BankAccount("testUser","testPass",1000,null);
+            BankAccount testAccount = new BankAccount("testUser","testPass",1000,null,null);
             testLoan.grantLoanWithoutIncome(testAccount);
             assertEquals(testLoan.getLoanHolder(), testAccount);
             boolean madePayment=testLoan.tryLoanPayment(500);

@@ -7,6 +7,7 @@ public class Menu {
 	private Scanner in;
 	private PrintStream out;
 	private BankAccount account;
+	private double DEFAULT_INTEREST_RATE=0.05;
 	
 	//not tested
 	public static void main(String[] args) {
@@ -111,7 +112,7 @@ public class Menu {
         if (storedPassword.equals(password)) {
             double balance = Double.parseDouble(scanner.nextLine().substring(9));
             List<Card> cards = readCards(scanner);
-            return new BankAccount(username, password, balance, cards);
+            return new BankAccount(username, password, balance, cards,null);
         } else {
             out.println("Password incorrect. Please try again.");
             return null;
@@ -169,7 +170,7 @@ public class Menu {
 	
 	//Code that just displays stuff - no tests needed
 	public void displayingOptions() {
-		System.out.print("To deposit money enter \"1\". To withdraw money enter \"2\".\n" +"To go to card menu enter \"3\". To pay a bill enter \"4\".\n" + "To quit enter \"5\": ");
+		System.out.print("To deposit money enter \"1\". To withdraw money enter \"2\".\n" +"To go to card menu enter \"3\". To pay a bill enter \"4\".\n" + "To quit enter \"5\". To handle loans enter \"6\": ");
 	}
 	
 	//Menu method to loop until quit
@@ -181,6 +182,57 @@ public class Menu {
 			if(menuLoop(input)) {
 				break;
 			}
+		}
+	}
+	public void listLoans() {
+		List<Loan> loans =account.getLoans();
+		int loanIndex=1;
+		for(Loan l : loans) {
+			System.out.println(loanIndex+") amount unpaid: "+l.getAmountUnpaid());
+			loanIndex++;
+		}
+	}
+	public void handleLoanApplication(double amount) {
+		Loan loan = new Loan(amount, DEFAULT_INTEREST_RATE);
+		loan.grantLoanWithIncome(account);
+	}
+	public void handleLoanPayment(List<Loan> loans, int loanIndx) {
+		System.out.print("Payment size for loan "+loanIndx+": ");
+		Double paymentAmount = Double.parseDouble(getValidUserInput());
+		try {
+			loans.get(loanIndx-1).tryLoanPayment(paymentAmount);
+		}catch(IllegalArgumentException e) {
+			System.out.print("Error: "+e.getMessage());
+		}
+	}
+	public void handleLoanPaymentSelection() {
+		List<Loan> loans = account.getLoans();
+		System.out.println("these are your current loans");
+		listLoans();
+		System.out.println("Enter the number of which loan would you like to make a payment to, or \"0\" to quit: ");
+		int loanSelection = (int) Double.parseDouble(getValidUserInput());
+		if(loanSelection>0&&loanSelection<=loans.size()) {handleLoanPayment(loans,loanSelection);}
+		else {System.out.println("no payment made, leaving payment option");}
+		
+		
+	}
+	public void handleLoan() {
+		System.out.println("To apply for a loan enter \"1\". To make a payment on an existing loan enter \"2\". To see all of your loans enter \"3\". To leave loan menu enter anything else");
+		String input = in.nextLine();
+		switch(input) {
+			case "1":
+				System.out.println("How much money do you want the loan to be: ");
+				double lAmount = Double.parseDouble(getValidUserInput());
+				handleLoanApplication(lAmount);
+				break;
+			case "2":
+				handleLoanPaymentSelection();
+				break;
+			case "3":
+				listLoans();
+				break;
+			default:
+				System.out.println("leaving loan menu");
 		}
 	}
 	
@@ -206,6 +258,9 @@ public class Menu {
 				saveOverwriteAccountToFile(this.account, "src/accountData/accounts.txt");
 				out.println("Thank you. Have a nice day!");
 				return true; // Exit loop
+			case "6":
+				handleLoan();
+				return false; //Continue loop
 			default:
 				out.println("Invalid input.");
 			return false; // Continue loop
@@ -294,7 +349,7 @@ public class Menu {
 			scanner.nextLine(); // Skip the "Cards:" line
 			cardAdder(scanner, cards);
 		
-			return new BankAccount(username, password, balance, cards);
+			return new BankAccount(username, password, balance, cards,null);
 		}
 		
 		private void cardAdder(Scanner scanner, List<Card> cards) {

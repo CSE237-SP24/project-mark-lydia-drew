@@ -43,7 +43,7 @@ public class AccountLoginTests {
         // Arrange
         String filename = "src/accountData/accounts_test.txt";
         Menu menu = new Menu(new BankAccount("testuser", "passwd"));
-        BankAccount account = new BankAccount("test_user_new", "test_pass_new", 100.0, new ArrayList<>());
+        BankAccount account = new BankAccount("test_user_new", "test_pass_new", 100.0, new ArrayList<>(),null);
         
         // Act
         menu.saveNewAccountToFile(account, filename);
@@ -59,7 +59,7 @@ public class AccountLoginTests {
         // Arrange
         String filename = "src/accountData/accounts_test.txt";
         Menu menu = new Menu(new BankAccount("testuser", "passwd"));
-        BankAccount account = new BankAccount("test_user_overwrite", "test_pass_overwrite", 100.0, new ArrayList<>());
+        BankAccount account = new BankAccount("test_user_overwrite", "test_pass_overwrite", 100.0, new ArrayList<>(),null);
         menu.saveNewAccountToFile(account, filename);
         // Act
         String deposit = "150.0";
@@ -77,7 +77,7 @@ public class AccountLoginTests {
         // Action: Add a new card
     	String filename = "src/accountData/accounts_test.txt";
         Menu menu = new Menu(new BankAccount("testuser", "passwd"));
-        BankAccount account = new BankAccount("test_user_overwrite", "test_pass_overwrite", 100.0, new ArrayList<>());
+        BankAccount account = new BankAccount("test_user_overwrite", "test_pass_overwrite", 100.0, new ArrayList<>(),null);
         menu.saveNewAccountToFile(account, filename);
         String cardNumber = "1234567890123456";
         int cardType = 1;
@@ -98,7 +98,7 @@ public class AccountLoginTests {
         // Action: Delete a  card
     	String filename = "src/accountData/accounts_test.txt";
         Menu menu = new Menu(new BankAccount("testuser", "passwd"));
-        BankAccount account = new BankAccount("test_user_overwrite", "test_pass_overwrite", 100.0, new ArrayList<>());
+        BankAccount account = new BankAccount("test_user_overwrite", "test_pass_overwrite", 100.0, new ArrayList<>(),null);
         menu.saveNewAccountToFile(account, filename);
         String cardNumber = "1234567890123456";
         int cardType = 1;
@@ -125,9 +125,9 @@ public class AccountLoginTests {
         Menu menu = new Menu(new BankAccount("testuser", "passwd"));
 
         // Create and save multiple accounts to the file
-        BankAccount account1 = new BankAccount("user1", "pass1", 100.0, new ArrayList<>());
-        BankAccount account2 = new BankAccount("user2", "pass2", 200.0, new ArrayList<>());
-        BankAccount account3 = new BankAccount("user3", "pass3", 300.0, new ArrayList<>());
+        BankAccount account1 = new BankAccount("user1", "pass1", 100.0, new ArrayList<>(),null);
+        BankAccount account2 = new BankAccount("user2", "pass2", 200.0, new ArrayList<>(),null);
+        BankAccount account3 = new BankAccount("user3", "pass3", 300.0, new ArrayList<>(),null);
 
         menu.saveNewAccountToFile(account1, filename);
         menu.saveNewAccountToFile(account2, filename);
