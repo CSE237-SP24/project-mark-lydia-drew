@@ -10,7 +10,7 @@ import bankapp.Menu;
 import bankapp.BankAccount;
 import bankapp.Card;
 
-public class AccountLoginTests {
+public class AccountStorageTests {
 	
 	
 	@Test
