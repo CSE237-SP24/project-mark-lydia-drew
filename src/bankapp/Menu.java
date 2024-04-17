@@ -170,7 +170,7 @@ public class Menu {
 	
 	//Code that just displays stuff - no tests needed
 	public void displayingOptions() {
-		System.out.print("To deposit money enter \"1\". To withdraw money enter \"2\".\n" +"To go to card menu enter \"3\". To pay a bill enter \"4\".\n" + "To quit enter \"5\". To handle loans enter \"6\": ");
+		System.out.print("To deposit money enter \"1\". To withdraw money enter \"2\".\n" +"To go to card menu enter \"3\". To pay a bill enter \"4\".\n" + "To handle loans enter \"5\". To quit enter \"6\".  ");
 	}
 	
 	//Menu method to loop until quit
@@ -254,11 +254,11 @@ public class Menu {
 			case "4":
 				displayBillMenu(account);
 				return false; // Continue loop
-			case "5":
+			case "6":
 				saveOverwriteAccountToFile(this.account, "src/accountData/accounts.txt");
 				out.println("Thank you. Have a nice day!");
 				return true; // Exit loop
-			case "6":
+			case "5":
 				handleLoan();
 				return false; //Continue loop
 			default:
