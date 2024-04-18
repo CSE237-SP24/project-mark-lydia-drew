@@ -5,14 +5,20 @@ import java.util.*;
 public class CardMenu {
 	private Scanner in;
 	private BankAccount account;
+	private CreditScoreMenu creditMenu;
+	
 	//Constructor
 	public CardMenu(BankAccount account) {
 		this.in = new Scanner(System.in);
 		this.account = account;
+		this.creditMenu = new CreditScoreMenu();
 	}
+	
+	
 	public void cardMenuDisplay(){
 		infiniteCards();
 	}
+	
 	public void infiniteCards() {
 		boolean userQuit = false;
 		System.out.println("Welcome to your card menu.");
@@ -22,7 +28,8 @@ public class CardMenu {
 			System.out.println("1. Display cards linked to account");
 			System.out.println("2. Add a new card");
 			System.out.println("3. Remove a card");
-			System.out.println("4. Quit");
+			System.out.println("4. Calculate credit score");
+			System.out.println("5. Quit");
 			// Getting user input
 			String input = in.nextLine();
 			// Processing user input
@@ -41,6 +48,9 @@ public class CardMenu {
 	        	removeCard();
 	        	return false;
 	        case "4":
+	        	creditMenu.creditMenuDisplay();
+	        	return false;
+	        case "5":
 	            System.out.println("Exiting card menu.");
 	            return true; // Exit loop
 	        default:
