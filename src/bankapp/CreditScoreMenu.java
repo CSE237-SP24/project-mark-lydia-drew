@@ -7,11 +7,6 @@ public class CreditScoreMenu {
 	private Scanner in;
 	private static final double[] WEIGHTS = {35, 30, 15, 10, 10}; // weights used for credit scoring
 	
-	public static void main(String args[]) {
-		CreditScoreMenu menu = new CreditScoreMenu();
-		menu.creditMenuDisplay();
-		
-	}
 	
 	public CreditScoreMenu() {
 		this.in = new Scanner(System.in);
