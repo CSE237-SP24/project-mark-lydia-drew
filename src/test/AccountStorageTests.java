@@ -10,14 +10,14 @@ import bankapp.Menu;
 import bankapp.BankAccount;
 import bankapp.Card;
 
-public class AccountLoginTests {
+public class AccountStorageTests {
 	
 	
 	@Test
     public void testCheckAccountsFileExists_FileExists() {
         // Arrange
         String filename = "src/accountData/accounts.txt";
-        Menu menu = new Menu(new BankAccount("testuser", "passwd"));
+        Menu menu = new Menu(new BankAccount("testuser", "passwd"), filename);
         
         // Act
         boolean result = menu.checkAccountsFileExists(filename);
@@ -29,7 +29,7 @@ public class AccountLoginTests {
     public void testCheckAccountsFileExists_FileDoesNotExist() {
         // Arrange
         String filename = "src/accountData/nonexistent.txt";
-        Menu menu = new Menu(new BankAccount("testuser", "passwd"));
+        Menu menu = new Menu(new BankAccount("testuser", "passwd"), filename);
         
         // Act
         boolean result = menu.checkAccountsFileExists(filename);
@@ -42,7 +42,7 @@ public class AccountLoginTests {
 	 public void testSaveNewAccountToFile() {
         // Arrange
         String filename = "src/accountData/accounts_test.txt";
-        Menu menu = new Menu(new BankAccount("testuser", "passwd"));
+        Menu menu = new Menu(new BankAccount("testuser", "passwd"), filename);
         BankAccount account = new BankAccount("test_user_new", "test_pass_new", 100.0, new ArrayList<>());
         
         // Act
@@ -58,7 +58,7 @@ public class AccountLoginTests {
     public void testUpdateAccountDataBalance() {
         // Arrange
         String filename = "src/accountData/accounts_test.txt";
-        Menu menu = new Menu(new BankAccount("testuser", "passwd"));
+        Menu menu = new Menu(new BankAccount("testuser", "passwd"), filename);
         BankAccount account = new BankAccount("test_user_overwrite", "test_pass_overwrite", 100.0, new ArrayList<>());
         menu.saveNewAccountToFile(account, filename);
         // Act
@@ -76,7 +76,7 @@ public class AccountLoginTests {
     public void testAddCard() {
         // Action: Add a new card
     	String filename = "src/accountData/accounts_test.txt";
-        Menu menu = new Menu(new BankAccount("testuser", "passwd"));
+        Menu menu = new Menu(new BankAccount("testuser", "passwd"), filename);
         BankAccount account = new BankAccount("test_user_overwrite", "test_pass_overwrite", 100.0, new ArrayList<>());
         menu.saveNewAccountToFile(account, filename);
         String cardNumber = "1234567890123456";
@@ -97,7 +97,7 @@ public class AccountLoginTests {
     public void testDeleteCard() {
         // Action: Delete a  card
     	String filename = "src/accountData/accounts_test.txt";
-        Menu menu = new Menu(new BankAccount("testuser", "passwd"));
+        Menu menu = new Menu(new BankAccount("testuser", "passwd"), filename);
         BankAccount account = new BankAccount("test_user_overwrite", "test_pass_overwrite", 100.0, new ArrayList<>());
         menu.saveNewAccountToFile(account, filename);
         String cardNumber = "1234567890123456";
@@ -122,7 +122,7 @@ public class AccountLoginTests {
     public void testEditAccountDoesNotAffectOtherAccounts() {
         // Action: Add multiple accounts to the file
         String filename = "src/accountData/accounts_test.txt";
-        Menu menu = new Menu(new BankAccount("testuser", "passwd"));
+        Menu menu = new Menu(new BankAccount("testuser", "passwd"), filename);
 
         // Create and save multiple accounts to the file
         BankAccount account1 = new BankAccount("user1", "pass1", 100.0, new ArrayList<>());
