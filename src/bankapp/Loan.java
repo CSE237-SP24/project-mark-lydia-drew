@@ -37,6 +37,7 @@ public class Loan {
         double income = getValidUserInput();
         if(authorizeLoan(income, applicant)){
             this.loanHolder=applicant;
+            applicant.getLoans().add(this);
             System.out.println("Congratulations, your loan has been approved");
         }else{
             System.out.println("Loan Application Rejected");
@@ -45,6 +46,7 @@ public class Loan {
     public void grantLoanWithoutIncome(BankAccount applicant){
         if(authorizeLoan(0, applicant)){
             this.loanHolder=applicant;
+            applicant.getLoans().add(this);
             System.out.println("Congratulations, your loan has been approved");
         }else{
             System.out.println("Loan Application Rejected");

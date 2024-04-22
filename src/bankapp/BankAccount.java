@@ -8,6 +8,7 @@ public class BankAccount {
 	private String password;
 	private String username;
 	private List<Card> cards;
+	private List<Loan> loans;
 	
 	
 	//Constructors - not tested
@@ -16,13 +17,15 @@ public class BankAccount {
 		this.password = passwd;
 		this.balance = 0;
 		this.cards = new ArrayList<Card>();
+		this.loans = new ArrayList<Loan>();
 	}
 	
-	public BankAccount(String userToAdd, String passwd, double balanc, List<Card> thisCards) {
+	public BankAccount(String userToAdd, String passwd, double balanc, List<Card> thisCards, List<Loan> thisLoans) {
 		this.username = userToAdd;
 		this.password = passwd;
 		this.balance = balanc;
 		this.cards = thisCards;
+		this.loans = thisLoans;
 	}
 	
 	//public method doing some work - lots of tests
@@ -78,6 +81,9 @@ public class BankAccount {
 	
 	public List<Card> getCards() {
 		return this.cards;
+	}
+	public List<Loan> getLoans(){
+		return loans;
 	}
 	public Card findCard(String number) {
 		for (Card card : cards) {
