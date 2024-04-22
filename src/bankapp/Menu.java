@@ -9,7 +9,7 @@ public class Menu {
 	private BankAccount account;
 	private String filepath;
 	private double DEFAULT_INTEREST_RATE=0.05;
-	
+
 	//not tested
 	public static void main(String[] args) {
 		Menu mainMenu = new Menu();
@@ -115,7 +115,7 @@ public class Menu {
 		if (storedPassword.equals(password)) {
 			double balance = Double.parseDouble(scanner.nextLine().substring(9));
 			List<Card> cards = readCards(scanner);
-			return new BankAccount(username, password, balance, cards, null);
+			return new BankAccount(username, password, balance, cards, new ArrayList<>());
 		} else {
 			out.println("Password incorrect. Please try again.");
 			return null;
@@ -257,29 +257,29 @@ public class Menu {
 		int loanSelection = (int) Double.parseDouble(getValidUserInput());
 		if(loanSelection>0&&loanSelection<=loans.size()) {handleLoanPayment(loans,loanSelection);}
 		else {System.out.println("no payment made, leaving payment option");}
-		
-		
+
+
 	}
 	public void handleLoan() {
 		System.out.println("To apply for a loan enter \"1\". To make a payment on an existing loan enter \"2\". To see all of your loans enter \"3\". To leave loan menu enter anything else");
 		String input = in.nextLine();
 		switch(input) {
-			case "1":
-				System.out.println("How much money do you want the loan to be: ");
-				double lAmount = Double.parseDouble(getValidUserInput());
-				handleLoanApplication(lAmount);
-				break;
-			case "2":
-				handleLoanPaymentSelection();
-				break;
-			case "3":
-				listLoans();
-				break;
-			default:
-				System.out.println("leaving loan menu");
+		case "1":
+			System.out.println("How much money do you want the loan to be: ");
+			double lAmount = Double.parseDouble(getValidUserInput());
+			handleLoanApplication(lAmount);
+			break;
+		case "2":
+			handleLoanPaymentSelection();
+			break;
+		case "3":
+			listLoans();
+			break;
+		default:
+			System.out.println("leaving loan menu");
 		}
 	}
-	
+
 
 	public void handleDeposit(String dAmount) {
 		try {
@@ -357,58 +357,6 @@ public class Menu {
 	public void saveNewAccountToFile(BankAccount account, String filename) {
 		try (PrintWriter writer = new PrintWriter(new FileWriter(filename, true))) {
 			// Write account information to the file
-	
-	 public void saveNewAccountToFile(BankAccount account, String filename) {
-	        try (PrintWriter writer = new PrintWriter(new FileWriter(filename, true))) {
-	            // Write account information to the file
-	            writer.println("ACCOUNT HEADER");
-	            writer.println("Username: " + account.getUsername());
-	            writer.println("Password: " + account.getPassword());
-	            writer.println("Balance: " + account.getBalance());
-	            writer.println("Cards:");
-	            for (Card card : account.getCards()) {
-	                writer.print(card.getNumber() + "  " + card.getTypeNum());
-	            }
-	        } catch (IOException e) {
-	            // Handle the exception
-	            System.err.println("Error writing new account information to file: " + e.getMessage());
-	        }
-	    }
-	 
-		private BankAccount readAccountFromLine(Scanner scanner) {
-			String test = scanner.nextLine();
-			String username = null;
-			if (test.equals("ACCOUNT HEADER")) {
-				 username = scanner.nextLine().substring(10);
-			}
-			else {
-				 username = test.substring(10);
-			}
-			String password = scanner.nextLine().substring(10); // Assuming "Password: " is 10 characters long
-			double balance = Double.parseDouble(scanner.nextLine().substring(9)); // Assuming "Balance: " is 9 characters long
-			// Read cards
-			List<Card> cards = new ArrayList<>();
-			scanner.nextLine(); // Skip the "Cards:" line
-			cardAdder(scanner, cards);
-		
-			return new BankAccount(username, password, balance, cards,null);
-		}
-		
-		private void cardAdder(Scanner scanner, List<Card> cards) {
-		    while (scanner.hasNextLine()) {
-		        String cardLine = scanner.nextLine();
-		        if (cardLine.equals("ACCOUNT HEADER")) {
-		            break; // Stop reading cards if next account header is encountered
-		        }
-		        String[] cardDetails = cardLine.split("\\s+");
-		        String cardNumber = cardDetails[0];
-		        int cardType = Integer.parseInt(cardDetails[1]);
-		        cards.add(new Card(cardNumber, cardType));
-		    }
-		}
-		
-		private void writeAccountToLine(PrintWriter writer, BankAccount account) {
-			// Write username, password, and balance to the file
 			writer.println("ACCOUNT HEADER");
 			writer.println("Username: " + account.getUsername());
 			writer.println("Password: " + account.getPassword());
@@ -417,8 +365,30 @@ public class Menu {
 			for (Card card : account.getCards()) {
 				writer.print(card.getNumber() + "  " + card.getTypeNum());
 			}
+		} catch (IOException e) {
+			// Handle the exception
+			System.err.println("Error writing new account information to file: " + e.getMessage());
+		}
 	}
 
+	private BankAccount readAccountFromLine(Scanner scanner) {
+		String test = scanner.nextLine();
+		String username = null;
+		if (test.equals("ACCOUNT HEADER")) {
+			username = scanner.nextLine().substring(10);
+		}
+		else {
+			username = test.substring(10);
+		}
+		String password = scanner.nextLine().substring(10); // Assuming "Password: " is 10 characters long
+		double balance = Double.parseDouble(scanner.nextLine().substring(9)); // Assuming "Balance: " is 9 characters long
+		// Read cards
+		List<Card> cards = new ArrayList<>();
+		scanner.nextLine(); // Skip the "Cards:" line
+		cardAdder(scanner, cards);
+
+		return new BankAccount(username, password, balance, cards, new ArrayList<>());
+	}
 
 	private void cardAdder(Scanner scanner, List<Card> cards) {
 		while (scanner.hasNextLine()) {
@@ -439,13 +409,13 @@ public class Menu {
 		writer.println("Username: " + account.getUsername());
 		writer.println("Password: " + account.getPassword());
 		writer.println("Balance: " + account.getBalance());
-
-		// Write cards
 		writer.println("Cards:");
 		for (Card card : account.getCards()) {
-			writer.println(card.getNumber() + " " + card.getTypeNum());
+			writer.print(card.getNumber() + "  " + card.getTypeNum());
 		}
 	}
+
+
 	// Method to save account to file while overwriting
 	public void saveOverwriteAccountToFile(BankAccount account, String filename) {
 		List<BankAccount> accounts = readAccountsFromFile(filename);
